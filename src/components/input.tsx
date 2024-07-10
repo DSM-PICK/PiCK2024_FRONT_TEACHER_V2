@@ -6,7 +6,7 @@ import EyeOpen from "@/assets/svg/eye.svg";
 interface InputProp {
   label?: string;
   type: "text" | "password" | "textarea";
-  placeholder: string;
+  placeholder?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
   value: string;
@@ -37,6 +37,7 @@ const Input = ({
           onKeyDown={onKeyDown}
           name={name}
           value={value}
+          autoComplete="off"
         />
         {type === "password" && (
           <EyesContainer onClick={() => setShowPassword(!showPassword)}>
@@ -58,7 +59,7 @@ const InputContainer = styled.div`
   display: flex;
   width: 100%;
   border-radius: 8px;
-  padding: 14px 16px;
+  padding: 11px 16px;
   background-color: ${theme.color.gray[50]};
   border: 1px solid ${theme.color.gray[50]};
 
