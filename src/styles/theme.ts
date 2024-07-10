@@ -41,19 +41,19 @@ export const theme = {
     heading: {
       1: {
         size: "42px",
-        fontWeight: "500",
+        fontWeight: "600",
       },
       2: {
         size: "32px",
-        fontweight: "500",
+        fontweight: "600",
       },
       3: {
         size: "24px",
-        fontweight: "500",
+        fontweight: "600",
       },
       4: {
         size: "20px",
-        fontweight: "500",
+        fontweight: "600",
       },
     },
     subTitle: {
@@ -73,15 +73,15 @@ export const theme = {
     body: {
       1: {
         size: "14px",
-        fontweight: "400",
+        fontweight: "500",
       },
       2: {
         size: "12px",
-        fontweight: "400",
+        fontweight: "500",
       },
       3: {
         size: "10px",
-        fontweight: "400",
+        fontweight: "500",
       },
     },
     caption: {
