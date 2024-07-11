@@ -33,6 +33,9 @@ export const MealInfoWrap = styled.div`
   gap: 16px;
   background-color: ${theme.color.main[50]};
   border-radius: 12px;
+  @media (max-width: 350px) {
+    width: 100%;
+  }
 `;
 
 export const MealTitle = styled.p`
@@ -44,7 +47,7 @@ export const MealTitle = styled.p`
 export const MealContent = styled.p`
   font-size: ${theme.font.body[2].size};
   font-weight: ${theme.font.body[2].fontweight};
-  white-space: nowrap;
+  text-align: center;
 `;
 
 export const MealContentWrap = styled.div`
