@@ -84,11 +84,16 @@ const SemiTitle = styled.p`
 const MealWrap = styled.div`
   display: flex;
   gap: 16px;
+  @media (max-width: 350px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const Container = styled.div`
   position: absolute;
   height: 100%;
+  overflow: scroll;
   background-color: ${theme.color.normal.white};
   z-index: 2;
   right: 0;

@@ -44,15 +44,11 @@ instance.interceptors.response.use(
         const refreshToken = cookie.get("refresh_token");
         if (refreshToken) {
           try {
-            const res = await axios.put(
-              `${BASEURL}/admin/refresh`,
-              {},
-              {
-                headers: {
-                  "X-Refresh-Token": `Bearer ${refreshToken}`,
-                },
-              }
-            );
+            const res = await axios.put(`${BASEURL}/admin/refresh`, null, {
+              headers: {
+                "X-Refresh-Token": `Bearer ${refreshToken}`,
+              },
+            });
             const { data } = res.data;
             const accessToken = data.accessToken;
             cookie.set("access_token", accessToken);
