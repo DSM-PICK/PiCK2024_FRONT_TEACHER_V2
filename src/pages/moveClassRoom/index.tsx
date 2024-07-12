@@ -1,4 +1,4 @@
-import Button from "@/components/button";
+import Button from "@/components/button/button";
 import Layout from "@/components/layout";
 import Tab from "@/components/tab";
 import { getToday } from "@/utils/date";
@@ -91,7 +91,7 @@ const MoveClassroom = () => {
       ))}
       <Button
         onClick={() => {
-          router("/moveClassRoom/ok");
+          router("ok");
         }}
         width="100%"
       >

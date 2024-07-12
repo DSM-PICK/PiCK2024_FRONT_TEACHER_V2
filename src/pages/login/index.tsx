@@ -1,5 +1,5 @@
 import { useLogin } from "@/apis/admin";
-import Button from "@/components/button";
+import Button from "@/components/button/button";
 import Input from "@/components/input";
 import { theme } from "@/styles/theme";
 import { saveToken } from "@/utils/auth";
