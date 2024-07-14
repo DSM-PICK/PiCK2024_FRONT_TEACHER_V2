@@ -1,7 +1,7 @@
 import { StoryAll } from "@/apis/story";
 import SearchInput from "@/components/input/search";
-import Layout from "@/components/layout";
-import Prelist from "@/components/preList";
+import Layout from "@/components/layout/layout";
+import Prelist from "@/components/preList/preList";
 import { getStudentString } from "@/utils/util";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
