@@ -1,7 +1,7 @@
 import TextLogo from "@/assets/svg/PiCKtextLogo.svg";
 import MenuBar from "@/assets/svg/menubar.svg";
 import { styled } from "styled-components";
-import Sidebar from "@/components/sidebar";
+import Sidebar from "@/components/sidebar/sidebar";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
