@@ -57,9 +57,3 @@ const MoveOkClassroom = () => {
 };
 
 export default MoveOkClassroom;
-
-const ButtonWrap = styled.div`
-  height: 34px;
-  display: flex;
-  gap: 10px;
-`;
