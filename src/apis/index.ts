@@ -1,17 +1,23 @@
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import { cookie } from "@/utils/auth";
+import { useState } from "react";
 
 const BASEURL = import.meta.env.VITE_SERVER_BASE_URL;
 
-export const instance = axios.create({
+export const instance: AxiosInstance = axios.create({
   baseURL: BASEURL,
   timeout: 10000,
 });
 
-export const refreshInstance = axios.create({
+export const refreshInstance: AxiosInstance = axios.create({
   baseURL: BASEURL,
   timeout: 10000,
 });
+
+interface RefreshResponseData {
+  accessToken: string;
+  refreshToken: string;
+}
 
 instance.interceptors.request.use(
   (config) => {
@@ -37,36 +43,30 @@ refreshInstance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => response,
-  async (error: AxiosError<AxiosError>) => {
+  async (error: AxiosError) => {
     if (axios.isAxiosError(error) && error.response) {
-      const { status } = error.response.data;
+      const { status } = error.response;
       if (status === 401) {
         const refreshToken = cookie.get("refresh_token");
         if (refreshToken) {
           try {
-            const res = await axios.put(`${BASEURL}/admin/refresh`, null, {
-              headers: {
-                "X-Refresh-Token": `Bearer ${refreshToken}`,
-              },
-            });
-            const { data } = res.data;
-            const accessToken = data.accessToken;
-            cookie.set("access_token", accessToken);
-            if (error.config) {
-              error.config.headers.Authorization = `Bearer ${accessToken}`;
-              return axios.request(error.config);
-            }
-          } catch {
-            throw error;
+            await axios
+              .put(`${BASEURL}/admin/refresh`, null, {
+                headers: {
+                  "X-Refresh-Token": `${refreshToken}`,
+                },
+              })
+              .then((response) => {
+                const data = response.data;
+                cookie.set("access_token", data.access_token);
+                cookie.set("refresh_token", data.refresh_token);
+              });
+          } catch (refreshError) {
+            return Promise.reject(refreshError);
           }
-        } else {
-          throw error;
         }
-      } else {
-        throw error;
       }
-    } else {
-      throw error;
     }
+    return Promise.reject(error);
   }
 );
