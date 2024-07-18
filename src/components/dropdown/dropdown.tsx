@@ -8,7 +8,7 @@ import { theme } from "@/styles/theme";
 interface DropdownProp {
   type: "grade" | "class" | "floor" | "classTime" | "club" | "all";
   homeRoom?: boolean;
-  onChange: (option: number) => void;
+  onChange?: (option: number) => void;
 }
 
 const Dropdown: React.FC<DropdownProp> = ({ type, onChange, homeRoom }) => {
