@@ -54,8 +54,9 @@ const Attendance = () => {
       }
     >
       <Tab content={tab} onClick={handleTabClick} selectedIndex={selectedTab} />
-      {data.map((item) => (
+      {data.map((item, index) => (
         <AttendanceList
+          key={index}
           userInfo={getStudentString(item)}
           status={item.status6}
         />
