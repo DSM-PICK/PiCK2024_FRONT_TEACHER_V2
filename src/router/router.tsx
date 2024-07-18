@@ -1,3 +1,5 @@
+import Attendance from "@/pages/attendance";
+import Bug from "@/pages/bug";
 import Login from "@/pages/login";
 import Main from "@/pages/main";
 import MoveClassroom from "@/pages/moveClassRoom";
@@ -53,6 +55,14 @@ export const Router = createBrowserRouter([
             element: <PreviousDetail />,
           },
         ],
+      },
+      {
+        path: "bugReport",
+        element: <Bug />,
+      },
+      {
+        path: "selfStudy",
+        element: <Attendance />,
       },
     ],
   },

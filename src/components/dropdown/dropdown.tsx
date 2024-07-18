@@ -232,6 +232,7 @@ const DropList = styled.div`
   border: 1px solid ${theme.color.gray[200]};
   border-radius: 8px;
   overflow-y: scroll;
+  z-index: 5;
 `;
 
 const Content = styled.div`
