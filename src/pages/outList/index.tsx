@@ -7,8 +7,8 @@ import {
 import { ApplicaionList } from "@/apis/application/type";
 import Button from "@/components/button/button";
 import Dropdown from "@/components/dropdown/dropdown";
-import Layout from "@/components/layout";
-import OutRequest from "@/components/outRequest";
+import Layout from "@/components/layout/layout";
+import OutRequest from "@/components/outRequest/outRequest";
 import useAcceptListSelection from "@/hooks/userSelect";
 import { theme } from "@/styles/theme";
 import { getToday } from "@/utils/date";
