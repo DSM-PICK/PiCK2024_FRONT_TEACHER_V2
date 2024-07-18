@@ -1,3 +1,4 @@
+import Attendance from "@/pages/attendance";
 import Bug from "@/pages/bug";
 import Login from "@/pages/login";
 import Main from "@/pages/main";
@@ -58,6 +59,10 @@ export const Router = createBrowserRouter([
       {
         path: "bugReport",
         element: <Bug />,
+      },
+      {
+        path: "selfStudy",
+        element: <Attendance />,
       },
     ],
   },
