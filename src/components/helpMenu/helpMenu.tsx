@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { theme } from "@/styles/theme";
 import React, { useState } from "react";
-import HelpContent from "./helfcontent";
+import HelpContent from "../helpContent/helpcontent";
 import Alarm from "@/assets/svg/alram.svg";
 import Face from "@/assets/svg/face.svg";
 import Bug from "@/assets/svg/bug.svg";
