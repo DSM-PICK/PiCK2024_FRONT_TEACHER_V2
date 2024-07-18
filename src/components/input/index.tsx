@@ -8,8 +8,8 @@ interface InputProp {
   type: "text" | "password" | "textarea";
   placeholder?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  name: string;
-  value: string;
+  name?: string;
+  value?: string;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
