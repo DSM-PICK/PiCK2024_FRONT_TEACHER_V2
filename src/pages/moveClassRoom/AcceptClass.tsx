@@ -1,9 +1,9 @@
-import Layout from "@/components/layout";
-import Tab from "@/components/tab";
+import Layout from "@/components/layout/layout";
+import Tab from "@/components/tab/tab";
 import { getToday } from "@/utils/date";
 import { styled } from "styled-components";
 import { useEffect, useState } from "react";
-import ClassMove from "@/components/classMove";
+import ClassMove from "@/components/classMove/classMove";
 import { RequestClassRoom } from "@/apis/class-room";
 import { RequestClassRoomType } from "@/apis/class-room/type";
 import { getStudentString } from "@/utils/util";

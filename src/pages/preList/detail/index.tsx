@@ -1,6 +1,6 @@
 import { DetailList } from "@/apis/story";
-import Layout from "@/components/layout";
-import OutRequest from "@/components/outRequest";
+import Layout from "@/components/layout/layout";
+import OutRequest from "@/components/outRequest/outRequest";
 import { useParams } from "react-router-dom";
 
 const PreviousDetail = () => {

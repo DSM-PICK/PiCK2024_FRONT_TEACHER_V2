@@ -5,8 +5,8 @@ import SearchIcon from "@/assets/svg/search.svg";
 interface SearchInputProps {
   placeholder: string;
   onChange: (text: string) => void;
-  name: string;
-  value: string;
+  name?: string;
+  value?: string;
 }
 
 const SearchInput = ({
