@@ -9,7 +9,7 @@ interface AttendanceListProps {
 }
 
 const AttendanceList = ({ userInfo, status }: AttendanceListProps) => {
-  const [state, setState] = useState<string>("ATTENDANCE");
+  const [state, setState] = useState<string>(status);
 
   const handleStatusChange = (option: string) => {
     setState(option);
