@@ -6,7 +6,7 @@ const router = "/application";
 
 export const useApplicationRequest = (grade: number, class_num: number) => {
   return useQuery({
-    queryKey: ["ApplicationRequest"],
+    queryKey: ["ApplicationRequest", grade, class_num],
     queryFn: async () => {
       const { data } = await instance.get<ApplicaionList[]>(
         `${router}/grade?grade=${grade}&class_num=${class_num}`
@@ -26,7 +26,7 @@ export const ApplicationChange = () => {
 
 export const ApplicationList = (floor: number, status: string) => {
   return useQuery({
-    queryKey: ["ApplicationList"],
+    queryKey: ["ApplicationList", floor, status],
     queryFn: async () => {
       const { data } = await instance.get<ApplicaionList[]>(
         `${router}/floor?floor=${floor}&status=${status}`
