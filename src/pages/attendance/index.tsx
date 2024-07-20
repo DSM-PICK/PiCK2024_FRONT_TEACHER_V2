@@ -14,18 +14,10 @@ const Attendance = () => {
   const [selectedClass, setSelectedClass] = useState<number>(1);
   const [data, setData] = useState<AttendType[]>([]);
 
-  const { mutate: GetCheckList } = AttendanceCheck();
-
-  const Get = () => {
-    GetCheckList(
-      { grade: selectedGrade, class_num: selectedClass },
-      {
-        onSuccess: (data) => {
-          setData(data);
-        },
-      }
-    );
-  };
+  const { data: GetCheckList, refetch: ReGetCheckList } = AttendanceCheck(
+    selectedGrade,
+    selectedClass
+  );
 
   const handleTabClick = (index: number) => {
     setSelectedTab(index);
@@ -40,7 +32,7 @@ const Attendance = () => {
   };
 
   useEffect(() => {
-    Get();
+    ReGetCheckList();
   }, [selectedGrade, selectedClass]);
 
   return (
@@ -54,7 +46,7 @@ const Attendance = () => {
       }
     >
       <Tab content={tab} onClick={handleTabClick} selectedIndex={selectedTab} />
-      {data.map((item, index) => (
+      {GetCheckList?.map((item, index) => (
         <AttendanceList
           key={index}
           userInfo={getStudentString(item)}
