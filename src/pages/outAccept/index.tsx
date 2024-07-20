@@ -1,5 +1,4 @@
-import { ApplicationChange, ApplicationRequest } from "@/apis/application";
-import { ApplicaionList } from "@/apis/application/type";
+import { ApplicationChange, useApplicationRequest } from "@/apis/application";
 import Button from "@/components/button/button";
 import Dropdown from "@/components/dropdown/dropdown";
 import Layout from "@/components/layout/layout";
@@ -14,9 +13,11 @@ import { styled } from "styled-components";
 const OutAccept = () => {
   const [selectedGrade, setSelectedGrade] = useState<number>(5);
   const [selectedClass, setSelectedClass] = useState<number>(5);
-  const [data, setData] = useState<ApplicaionList[]>([]);
 
-  const { mutate: Application } = ApplicationRequest();
+  const { data: Application, refetch: ReApplication } = useApplicationRequest(
+    selectedGrade,
+    selectedClass
+  );
   const { mutate: Check } = ApplicationChange();
 
   const Change = (option: boolean) => () => {
@@ -38,22 +39,8 @@ const OutAccept = () => {
   const { selectedStudentName, selectedStudents, handleAcceptListClick } =
     useAcceptListSelection();
 
-  const Get = () => {
-    Application(
-      { grade: selectedGrade, class: selectedClass },
-      {
-        onSuccess: (data) => {
-          setData(data);
-        },
-        onError: (error) => {
-          console.log(error.message);
-        },
-      }
-    );
-  };
-
   useEffect(() => {
-    Get();
+    ReApplication();
   }, [selectedGrade, selectedClass]);
 
   const handleGradeChange = (option: number) => {
@@ -87,7 +74,7 @@ const OutAccept = () => {
         </DropdownWrap>
       </TopContainer>
       <div>
-        {data.map((item) => (
+        {Application?.map((item) => (
           <OutRequest
             selected={selectedStudents.includes(item.id)}
             time={`${item.start_time} - ${item.end_time}`}
