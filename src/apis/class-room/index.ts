@@ -1,18 +1,15 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { instance } from "..";
 import { RequestClassRoomType, SubmitClassroom } from "./type";
 
 const router = "/class-room";
 
-export const RequestClassRoom = () => {
-  return useMutation<
-    RequestClassRoomType[],
-    Error,
-    { floor: number; status: "OK" | "QUIET" }
-  >({
-    mutationFn: async (param) => {
-      const { data } = await instance.get(
-        `${router}/floor?floor=${param.floor}&status=${param.status}`
+export const RequestClassRoom = (floor: number, status: "OK" | "QUIET") => {
+  return useQuery({
+    queryKey: ["RequestClassRoom"],
+    queryFn: async () => {
+      const { data } = await instance.get<RequestClassRoomType[]>(
+        `${router}/floor?floor=${floor}&status=${status}`
       );
       return data;
     },

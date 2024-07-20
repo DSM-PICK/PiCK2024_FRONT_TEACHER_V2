@@ -1,18 +1,17 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { AttendType } from "./type";
 import { instance } from "..";
 
 const router = "/attendance";
 
-export const AttendanceCheck = () => {
-  return useMutation<AttendType[], Error, { grade: number; class_num: number }>(
-    {
-      mutationFn: async (param) => {
-        const { data } = await instance.get(
-          `${router}/grade?grade=${param.grade}&class_num=${param.class_num}`
-        );
-        return data;
-      },
-    }
-  );
+export const AttendanceCheck = (grade: number, class_num: number) => {
+  return useQuery({
+    queryKey: ["AttendanceCheck"],
+    queryFn: async () => {
+      const { data } = await instance.get<AttendType[]>(
+        `${router}/grade?grade=${grade}&class_num=${class_num}`
+      );
+      return data;
+    },
+  });
 };
