@@ -6,7 +6,7 @@ const router = "/class-room";
 
 export const RequestClassRoom = (floor: number, status: "OK" | "QUIET") => {
   return useQuery({
-    queryKey: ["RequestClassRoom"],
+    queryKey: ["RequestClassRoom", floor, status],
     queryFn: async () => {
       const { data } = await instance.get<RequestClassRoomType[]>(
         `${router}/floor?floor=${floor}&status=${status}`
