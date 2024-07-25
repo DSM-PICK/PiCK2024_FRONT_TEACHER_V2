@@ -47,7 +47,7 @@ const ClassMoveContainer = styled.div<{ selected: boolean }>`
   border: 1px solid
     ${({ selected }) =>
       selected ? theme.color.main[500] : theme.color.gray[50]};
-  cursor: pointer; // Add cursor to indicate clickable element
+  cursor: pointer;
 `;
 
 const TopWrap = styled.div`
