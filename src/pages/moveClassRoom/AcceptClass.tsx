@@ -1,37 +1,24 @@
 import Layout from "@/components/layout/layout";
 import Tab from "@/components/tab/tab";
 import { getToday } from "@/utils/date";
-import { styled } from "styled-components";
 import { useEffect, useState } from "react";
 import ClassMove from "@/components/classMove/classMove";
 import { RequestClassRoom } from "@/apis/class-room";
-import { RequestClassRoomType } from "@/apis/class-room/type";
 import { getStudentString } from "@/utils/util";
 
 const MoveOkClassroom = () => {
   const TabContent = ["2층", "3층", "4층"];
   const [selectedTab, setSelectedTab] = useState(0);
-  const [data, setData] = useState<RequestClassRoomType[]>([]);
 
-  const { mutate: ReqClassRoom } = RequestClassRoom();
+  const { data: ReqClassRoom, refetch: RequestClassRommData } =
+    RequestClassRoom(selectedTab + 2, "OK");
 
   const handleTabClick = (index: number) => {
     setSelectedTab(index);
   };
 
-  const Get = () => {
-    ReqClassRoom(
-      { floor: selectedTab + 2, status: "OK" },
-      {
-        onSuccess: (data) => {
-          setData(data);
-        },
-      }
-    );
-  };
-
   useEffect(() => {
-    Get();
+    RequestClassRommData();
   }, [selectedTab]);
 
   return (
@@ -41,7 +28,7 @@ const MoveOkClassroom = () => {
         onClick={handleTabClick}
         selectedIndex={selectedTab}
       />
-      {data.map((item) => (
+      {ReqClassRoom?.map((item) => (
         <ClassMove
           key={item.id}
           selected={false}
