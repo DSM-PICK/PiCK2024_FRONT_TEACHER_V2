@@ -12,7 +12,6 @@ const Attendance = () => {
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const [selectedGrade, setSelectedGrade] = useState<number>(1);
   const [selectedClass, setSelectedClass] = useState<number>(1);
-  const [data, setData] = useState<AttendType[]>([]);
 
   const { data: GetCheckList, refetch: ReGetCheckList } = AttendanceCheck(
     selectedGrade,

@@ -1,10 +1,4 @@
-import {
-  ApplicationChange,
-  ApplicationList,
-  ApplicationRequest,
-  ReturnSchool,
-} from "@/apis/application";
-import { ApplicaionList } from "@/apis/application/type";
+import { ApplicationList, ReturnSchool } from "@/apis/application";
 import Button from "@/components/button/button";
 import Dropdown from "@/components/dropdown/dropdown";
 import Layout from "@/components/layout/layout";
@@ -18,9 +12,11 @@ import { styled } from "styled-components";
 
 const OutList = () => {
   const [selectedfloor, setSelectedfloor] = useState<number>(5);
-  const [data, setData] = useState<ApplicaionList[]>([]);
 
-  const { mutate: Application } = ApplicationList();
+  const { data: Application, refetch: ReApplication } = ApplicationList(
+    selectedfloor,
+    "OK"
+  );
   const { mutate: Return } = ReturnSchool();
 
   const StudentReturnSchool = () => {
@@ -32,23 +28,10 @@ const OutList = () => {
     });
   };
 
-  const Get = () => {
-    Application(
-      { floor: selectedfloor, status: "OK" },
-      {
-        onSuccess: (data) => {
-          setData(data);
-        },
-      }
-    );
-  };
-
-  console.log(data);
-
   const { selectedStudents, handleAcceptListClick } = useAcceptListSelection();
 
   useEffect(() => {
-    Get();
+    ReApplication();
   }, [selectedfloor]);
 
   const handleFloorChange = (option: number) => {
@@ -66,7 +49,7 @@ const OutList = () => {
           <Title>외출자 목록</Title>
         </TopContainer>
         <div>
-          {data.map((item) => (
+          {Application?.map((item) => (
             <OutRequest
               selected={selectedStudents.includes(item.id)}
               time={`${item.start_time} - ${item.end_time}`}

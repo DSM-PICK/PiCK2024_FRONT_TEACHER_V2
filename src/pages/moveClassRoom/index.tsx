@@ -14,13 +14,13 @@ import { useNavigate } from "react-router-dom";
 const MoveClassroom = () => {
   const TabContent = ["2층", "3층", "4층"];
   const [selectedTab, setSelectedTab] = useState(0);
-  const [data, setData] = useState<RequestClassRoomType[]>([]);
 
   const router = useNavigate();
 
   const { selectedStudents, handleAcceptListClick } = useAcceptListSelection();
 
-  const { mutate: ReqClassRoom } = RequestClassRoom();
+  const { data: ReqClassRoom, refetch: RequestClassRoomData } =
+    RequestClassRoom(selectedTab + 2, "QUIET");
   const { mutate: Accept } = AcceptClassroom();
 
   const handleOK = (accept: boolean) => () => {
@@ -43,19 +43,8 @@ const MoveClassroom = () => {
     setSelectedTab(index);
   };
 
-  const Get = () => {
-    ReqClassRoom(
-      { floor: selectedTab + 2, status: "QUIET" },
-      {
-        onSuccess: (data) => {
-          setData(data);
-        },
-      }
-    );
-  };
-
   useEffect(() => {
-    Get();
+    RequestClassRoomData();
   }, [selectedTab]);
 
   return (
@@ -78,7 +67,7 @@ const MoveClassroom = () => {
         onClick={handleTabClick}
         selectedIndex={selectedTab}
       />
-      {data.map((item) => (
+      {ReqClassRoom?.map((item) => (
         <ClassMove
           key={item.id}
           selected={selectedStudents.includes(item.id)}
