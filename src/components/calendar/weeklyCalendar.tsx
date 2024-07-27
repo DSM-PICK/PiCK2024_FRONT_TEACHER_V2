@@ -11,11 +11,11 @@ interface WeeklyCalendarProps {
   onDateSelect: (date: string) => void;
 }
 
-const WeeklyCalendar: React.FC<WeeklyCalendarProps> = ({
+const WeeklyCalendar = ({
   selectedDate,
   onBackToMonthlyClick,
   onDateSelect,
-}) => {
+}:WeeklyCalendarProps) => {
   const { currentDate } = useCalendarContext();
   const startDate = startOfWeek(selectedDate, { weekStartsOn: 0 });
   const weeks = ["일", "월", "화", "수", "목", "금", "토"];
