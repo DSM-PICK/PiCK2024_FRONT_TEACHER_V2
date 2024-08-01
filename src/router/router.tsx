@@ -1,3 +1,5 @@
+import Calendar from "@/components/calendar";
+import CalendarHeader from "@/components/calendar/CalendarHeader";
 import Attendance from "@/pages/attendance";
 import Bug from "@/pages/bug";
 import Login from "@/pages/login";
@@ -8,6 +10,7 @@ import OutAccept from "@/pages/outAccept";
 import OutList from "@/pages/outList";
 import PreviousList from "@/pages/preList";
 import PreviousDetail from "@/pages/preList/detail";
+import CalendarComponents from "@/pages/selfStudy";
 import { createBrowserRouter } from "react-router-dom";
 
 export const Router = createBrowserRouter([
@@ -63,6 +66,10 @@ export const Router = createBrowserRouter([
       {
         path: "selfStudy",
         element: <Attendance />,
+      },
+      {
+        path: "calendar",
+        element: <CalendarComponents />,
       },
     ],
   },
