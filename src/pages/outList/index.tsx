@@ -5,6 +5,7 @@ import Layout from "@/components/layout/layout";
 import OutRequest from "@/components/outRequest/outRequest";
 import useAcceptListSelection from "@/hooks/userSelect";
 import { theme } from "@/styles/theme";
+import { floorOptions } from "@/types/dropdown";
 import { getToday } from "@/utils/date";
 import { getStudentString } from "@/utils/util";
 import { useEffect, useState } from "react";
@@ -34,8 +35,8 @@ const OutList = () => {
     ReApplication();
   }, [selectedfloor]);
 
-  const handleFloorChange = (option: number) => {
-    setSelectedfloor(option);
+  const handleFloorChange = (option: number | string) => {
+    setSelectedfloor(Number(option));
   };
 
   return (
@@ -43,7 +44,13 @@ const OutList = () => {
       <Layout
         title="외출자 목록"
         subtitle={getToday()}
-        right={<Dropdown type="floor" onChange={handleFloorChange} />}
+        right={
+          <Dropdown
+            options={floorOptions}
+            value={selectedfloor}
+            changeHandler={handleFloorChange}
+          />
+        }
       >
         <TopContainer>
           <Title>외출자 목록</Title>
