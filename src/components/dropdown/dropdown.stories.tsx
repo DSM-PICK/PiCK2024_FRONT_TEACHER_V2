@@ -12,7 +12,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    type: "grade",
-    homeRoom: false,
+    options: [
+      { value: 2, label: "2층" },
+      { value: 3, label: "3층" },
+      { value: 4, label: "4층" },
+      { value: 5, label: "전체" },
+    ],
+    value: "",
+    changeHandler(value) {},
   },
 };

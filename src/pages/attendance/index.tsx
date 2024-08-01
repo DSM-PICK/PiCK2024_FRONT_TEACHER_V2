@@ -4,6 +4,7 @@ import AttendanceList from "@/components/attendList";
 import Dropdown from "@/components/dropdown/dropdown";
 import Layout from "@/components/layout/layout";
 import Tab from "@/components/tab/tab";
+import { classOptions, gradeOptions } from "@/types/dropdown";
 import { getStudentString } from "@/utils/util";
 import { useEffect, useState } from "react";
 
@@ -22,12 +23,12 @@ const Attendance = () => {
     setSelectedTab(index);
   };
 
-  const handleGradeChange = (option: number) => {
-    setSelectedGrade(option);
+  const handleGradeChange = (option: number | string) => {
+    setSelectedGrade(Number(option));
   };
 
-  const handleClassChange = (option: number) => {
-    setSelectedClass(option);
+  const handleClassChange = (option: number | string) => {
+    setSelectedClass(Number(option));
   };
 
   useEffect(() => {
@@ -39,8 +40,16 @@ const Attendance = () => {
       title="출석 체크"
       right={
         <>
-          <Dropdown type="grade" onChange={handleGradeChange} />
-          <Dropdown type="class" onChange={handleClassChange} />
+          <Dropdown
+            options={gradeOptions}
+            value={selectedGrade}
+            changeHandler={handleGradeChange}
+          />
+          <Dropdown
+            options={classOptions}
+            value={selectedClass}
+            changeHandler={handleClassChange}
+          />
         </>
       }
     >

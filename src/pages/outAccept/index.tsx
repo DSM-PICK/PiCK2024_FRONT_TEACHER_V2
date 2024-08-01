@@ -5,6 +5,7 @@ import Layout from "@/components/layout/layout";
 import OutRequest from "@/components/outRequest/outRequest";
 import useAcceptListSelection from "@/hooks/userSelect";
 import { theme } from "@/styles/theme";
+import { AllOption, AllclassOptions } from "@/types/dropdown";
 import { getToday } from "@/utils/date";
 import { getStudentString } from "@/utils/util";
 import { useEffect, useState } from "react";
@@ -43,12 +44,12 @@ const OutAccept = () => {
     ReApplication();
   }, [selectedGrade, selectedClass]);
 
-  const handleGradeChange = (option: number) => {
-    setSelectedGrade(option);
+  const handleGradeChange = (option: number | string) => {
+    setSelectedGrade(Number(option));
   };
 
-  const handleClassChange = (option: number) => {
-    setSelectedClass(option);
+  const handleClassChange = (option: number | string) => {
+    setSelectedClass(Number(option));
   };
 
   return (
@@ -69,8 +70,16 @@ const OutAccept = () => {
       <TopContainer>
         <Title>외출 신청한 학생</Title>
         <DropdownWrap>
-          <Dropdown type="grade" onChange={handleGradeChange} />
-          <Dropdown type="class" onChange={handleClassChange} />
+          <Dropdown
+            options={AllOption}
+            value={selectedGrade}
+            changeHandler={handleGradeChange}
+          />
+          <Dropdown
+            options={AllclassOptions}
+            value={selectedClass}
+            changeHandler={handleClassChange}
+          />
         </DropdownWrap>
       </TopContainer>
       <div>
