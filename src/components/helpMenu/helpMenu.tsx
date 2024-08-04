@@ -33,7 +33,7 @@ const HelfMenu = () => {
       <TestTitle>도움말</TestTitle>
       <HelpContent
         onClick={() => {
-          navigate("/selfStudyList");
+          navigate("/calendar");
         }}
         content="자습감독 선생님 확인"
         icon={<img src={Face} />}
