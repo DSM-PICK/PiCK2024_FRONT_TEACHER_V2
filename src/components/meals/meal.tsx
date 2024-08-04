@@ -29,7 +29,6 @@ export const MealInfoWrap = styled.div`
   align-items: center;
   width: 132px;
   padding: 20px 24px;
-  height: 100%;
   gap: 16px;
   background-color: ${theme.color.main[50]};
   border-radius: 12px;

@@ -14,11 +14,6 @@ export const refreshInstance: AxiosInstance = axios.create({
   timeout: 10000,
 });
 
-interface RefreshResponseData {
-  accessToken: string;
-  refreshToken: string;
-}
-
 instance.interceptors.request.use(
   (config) => {
     if (typeof window !== "undefined") {
@@ -60,6 +55,9 @@ instance.interceptors.response.use(
                 const data = response.data;
                 cookie.set("access_token", data.access_token);
                 cookie.set("refresh_token", data.refresh_token);
+              })
+              .catch(() => {
+                window.location.href == "/login";
               });
           } catch (refreshError) {
             return Promise.reject(refreshError);
