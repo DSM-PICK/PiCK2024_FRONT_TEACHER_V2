@@ -1,11 +1,14 @@
 import TextLogo from "@/assets/svg/PiCKtextLogo.svg";
 import MenuBar from "@/assets/svg/menubar.svg";
 import { styled } from "styled-components";
-import Sidebar from "./sidebar";
+import Sidebar from "@/components/sidebar/sidebar";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [menuModalOpen, setMenuModalOpen] = useState<boolean>(false);
+
+  const router = useNavigate();
 
   const name = localStorage.getItem("name");
   const menuModalRef = useRef<HTMLDivElement>(null);
@@ -33,7 +36,13 @@ const Header = () => {
   return (
     <HeaderWrap>
       <LeftContent>
-        <img src={TextLogo} alt="" />
+        <Img
+          onClick={() => {
+            router("/main");
+          }}
+          src={TextLogo}
+          alt=""
+        />
         <div>강해민 선생님</div>
       </LeftContent>
       <img
@@ -65,3 +74,5 @@ const LeftContent = styled.div`
   align-items: center;
   gap: 16px;
 `;
+
+const Img = styled.img``;

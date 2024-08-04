@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import Header from "./header";
+import Header from "../header/header";
 import React from "react";
 import { theme } from "@/styles/theme";
 
@@ -8,9 +8,16 @@ interface layoutProp {
   title: string;
   subtitle?: string;
   right?: React.ReactNode;
+  line?: boolean;
 }
 
-const Layout = ({ children, title, subtitle, right }: layoutProp) => {
+const Layout = ({
+  children,
+  title,
+  subtitle,
+  right,
+  line = true,
+}: layoutProp) => {
   return (
     <LayoutStyle>
       <Header />
@@ -22,7 +29,8 @@ const Layout = ({ children, title, subtitle, right }: layoutProp) => {
           </TopLeft>
           <TopRight>{right}</TopRight>
         </Top>
-        <Line />
+        {line && <Line />}
+
         {children}
       </ContentWrap>
     </LayoutStyle>
