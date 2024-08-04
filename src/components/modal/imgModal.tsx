@@ -10,7 +10,6 @@ interface ImgModalProp {
 }
 
 export const ImgModal = ({ isOpen, onClick, onClose }: ImgModalProp) => {
-  const [dragActive, setDragActive] = useState(false);
   const [images, setImages] = useState<File[]>([]);
   const pasteDivRef = useRef<HTMLDivElement>(null);
 
@@ -19,19 +18,16 @@ export const ImgModal = ({ isOpen, onClick, onClose }: ImgModalProp) => {
   const handleDragOver = (e: React.DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    setDragActive(true);
   };
 
   const handleDragLeave = (e: React.DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    setDragActive(true);
   };
 
   const handleDrop = (e: React.DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    setDragActive(true);
 
     const files = Array.from(e.dataTransfer.files);
     if (files.length > 0) {
