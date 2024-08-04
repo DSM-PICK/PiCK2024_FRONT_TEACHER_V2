@@ -64,7 +64,7 @@ export const Router = createBrowserRouter([
         element: <Bug />,
       },
       {
-        path: "selfStudy",
+        path: "selfStudyList",
         element: <Attendance />,
       },
       {
