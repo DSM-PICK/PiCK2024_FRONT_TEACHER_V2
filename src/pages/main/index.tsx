@@ -1,4 +1,4 @@
-import Header from "@/components/header";
+import Header from "@/components/header/header";
 import RouterButton from "@/components/routerButton";
 import { theme } from "@/styles/theme";
 import { getToday, getWeekDay } from "@/utils/date";
@@ -50,6 +50,7 @@ const SelfCheck = styled.div`
 const RouterWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   row-gap: 24px;
   column-gap: 22px;
 `;
