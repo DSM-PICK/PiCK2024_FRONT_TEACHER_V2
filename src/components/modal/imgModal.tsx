@@ -100,11 +100,9 @@ export const ImgModal = ({ isOpen, onClick, onClose }: ImgModalProp) => {
         </OtherContent>
         <ImgInput
           contentEditable="true"
-          ref={pasteDivRef}
+          placeholder="이미지를 복사 붙여넣기 해주세요"
           onPaste={handlePaste}
-        >
-          이미지를 복사붙여넣기 해주세요
-        </ImgInput>
+        />
         <Imgcontent>
           {images.map((image, index) => (
             <ImgContainer key={index} className="relative">
@@ -220,7 +218,7 @@ const OtherText = styled.p`
   color: ${theme.color.gray[200]};
 `;
 
-const ImgInput = styled.div`
+const ImgInput = styled.input`
   width: 100%;
   border: 1px solid ${theme.color.gray[100]};
   padding: 8px;
