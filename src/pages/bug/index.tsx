@@ -1,11 +1,13 @@
 import { BugImg } from "@/apis/bug";
 import { BugProp } from "@/apis/bug/type";
+import Button from "@/components/button/button";
 import Input from "@/components/input";
 import Layout from "@/components/layout/layout";
 import ImgModal from "@/components/modal/imgModal";
 import { theme } from "@/styles/theme";
 import React, { useState, ChangeEvent } from "react";
 import { styled } from "styled-components";
+import BugReportImg from "@/assets/svg/bugreport.svg";
 
 const Bug = () => {
   const [data, setData] = useState<BugProp>({
@@ -46,26 +48,97 @@ const Bug = () => {
     }
   };
 
+  const handleRemoveImage = (index: number) => {
+    setData((prevData) => ({
+      ...prevData,
+      file_name: prevData.file_name.filter((_, i) => i !== index),
+    }));
+  };
+
   return (
     <Layout title="" line={false}>
-      <div>어디서 버그가 발생했나요?</div>
-      <Input
-        onChange={handleChange}
-        type="text"
-        name="title"
-        value={data.title}
-      />
-      <div>버그에 대해 설명해주세요</div>
-      <Explane onChange={handleChange} name="content" value={data.content} />
-      <div>버그 사진을 첨부해주세요</div>
-      <ImgInput type="file" />
-      <ImgModal
-        onClick={handleImgUpload}
-        isOpen={modal}
-        onClose={() => {
-          setModal(!modal);
-        }}
-      />
+      <ContentWrap>
+        <InputContent>
+          <div>어디서 버그가 발생했나요?</div>
+          <Input
+            onChange={handleChange}
+            type="text"
+            name="title"
+            value={data.title}
+          />
+        </InputContent>
+        <InputContent>
+          <div>버그에 대해 설명해주세요</div>
+          <Explane
+            onChange={handleChange}
+            name="content"
+            value={data.content}
+          />
+        </InputContent>
+        <InputContent>
+          <p>버그 사진을 첨부해주세요</p>
+          {data.file_name.length === 0 ? (
+            <>
+              <ImgLabel
+                htmlFor="file-input"
+                onClick={() => {
+                  setModal(true);
+                }}
+              >
+                <img src={BugReportImg} alt="bug report icon" />
+                <AddImgText>사진을 첨부해주세요</AddImgText>
+              </ImgLabel>
+              <div
+                id="file-input"
+                className="hidden"
+                onChange={() => {
+                  setModal(!modal);
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <AddImgWrap>
+                <ImgLabel
+                  htmlFor="file-input"
+                  onClick={() => {
+                    setModal(true);
+                  }}
+                >
+                  <img src={BugReportImg} alt="bug report icon" />
+                  <AddImgText>사진을 첨부해주세요</AddImgText>
+                </ImgLabel>
+                <div id="file-input" hidden onClick={() => setModal(!modal)} />
+                <ImgContent>
+                  {data.file_name.map((item, index) => (
+                    <ImgWrap key={index}>
+                      <img
+                        src={`${import.meta.env.VITE_PUBLIC_FILE_APP}${item}`}
+                        key={index}
+                      />
+                      <DeleteImgButton onClick={() => handleRemoveImage(index)}>
+                        삭제
+                      </DeleteImgButton>
+                    </ImgWrap>
+                  ))}
+                </ImgContent>
+              </AddImgWrap>
+            </>
+          )}
+          <ImgModal
+            onClick={handleImgUpload}
+            isOpen={modal}
+            onClose={() => {
+              setModal(!modal);
+            }}
+          />
+        </InputContent>
+      </ContentWrap>
+      <ButtonContent>
+        <Button width="100%" onClick={() => {}}>
+          dsd
+        </Button>
+      </ButtonContent>
     </Layout>
   );
 };
@@ -85,4 +158,71 @@ const Explane = styled.textarea`
   }
 `;
 
-const ImgInput = styled.input``;
+const ImgContent = styled.div`
+  display: flex;
+  overflow-x: scroll;
+  gap: 4px;
+  width: 100%;
+`;
+
+const AddImgWrap = styled.div`
+  display: flex;
+  gap: 4px;
+`;
+
+const AddImgText = styled.p`
+  font-size: ${theme.font.label[2].size};
+  font-weight: ${theme.font.label[2].fontweight};
+`;
+
+const ImgLabel = styled.label`
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: max-content;
+  border-radius: 6px;
+  background-color: ${theme.color.gray[50]};
+  border: ${theme.color.gray[500]};
+  margin-bottom: 36px;
+  min-width: 100px;
+`;
+const DeleteImgButton = styled.button`
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  white-space: nowrap;
+  background-color: ${theme.color.normal.white};
+  color: ${theme.color.error[800]};
+  border-radius: 12px;
+  padding: 4px 8px;
+`;
+
+const ImgWrap = styled.div`
+  position: relative;
+  min-width: 110px;
+  height: 110px;
+  overflow: hidden;
+  border: 1px solid ${theme.color.gray[200]};
+`;
+
+const ButtonContent = styled.div`
+  position: absolute;
+  width: 87%;
+  bottom: 30px;
+`;
+
+const ContentWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+`;
+
+const InputContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
