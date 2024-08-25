@@ -1,4 +1,4 @@
-import { BugImg } from "@/apis/bug";
+import { BugImg, BugPost } from "@/apis/bug";
 import { BugProp } from "@/apis/bug/type";
 import Button from "@/components/button/button";
 import Input from "@/components/input";
@@ -8,6 +8,7 @@ import { theme } from "@/styles/theme";
 import React, { useState, ChangeEvent } from "react";
 import { styled } from "styled-components";
 import BugReportImg from "@/assets/svg/bugreport.svg";
+import { useNavigate } from "react-router-dom";
 
 const Bug = () => {
   const [data, setData] = useState<BugProp>({
@@ -18,6 +19,17 @@ const Bug = () => {
 
   const [modal, setModal] = useState<boolean>(false);
   const { mutate: BugImgMutate } = BugImg();
+  const { mutate: BugReportMutate } = BugPost();
+
+  const router = useNavigate();
+
+  const bugReport = () => {
+    BugReportMutate(data, {
+      onSuccess: () => {
+        router("/main");
+      },
+    });
+  };
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -88,13 +100,6 @@ const Bug = () => {
                 <img src={BugReportImg} alt="bug report icon" />
                 <AddImgText>사진을 첨부해주세요</AddImgText>
               </ImgLabel>
-              <div
-                id="file-input"
-                className="hidden"
-                onChange={() => {
-                  setModal(!modal);
-                }}
-              />
             </>
           ) : (
             <>
@@ -106,9 +111,7 @@ const Bug = () => {
                   }}
                 >
                   <img src={BugReportImg} alt="bug report icon" />
-                  <AddImgText>사진을 첨부해주세요</AddImgText>
                 </ImgLabel>
-                <div id="file-input" hidden onClick={() => setModal(!modal)} />
                 <ImgContent>
                   {data.file_name.map((item, index) => (
                     <ImgWrap key={index}>
@@ -135,8 +138,8 @@ const Bug = () => {
         </InputContent>
       </ContentWrap>
       <ButtonContent>
-        <Button width="100%" onClick={() => {}}>
-          dsd
+        <Button width="100%" onClick={bugReport}>
+          제보하기
         </Button>
       </ButtonContent>
     </Layout>
@@ -182,13 +185,13 @@ const ImgLabel = styled.label`
   padding: 32px;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: max-content;
+  max-width: 100%;
+  height: 110px;
   border-radius: 6px;
   background-color: ${theme.color.gray[50]};
-  border: ${theme.color.gray[500]};
+  border: 1px dashed ${theme.color.gray[500]};
   margin-bottom: 36px;
-  min-width: 100px;
+  min-width: 110px;
 `;
 const DeleteImgButton = styled.button`
   position: absolute;
