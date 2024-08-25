@@ -1,6 +1,7 @@
 import { instance } from "..";
 import { useMutation, MutateOptions } from "@tanstack/react-query";
 import { BugProp } from "./type";
+import { toast } from "react-toastify";
 
 export const BugImg = () => {
   return useMutation<string[], Error, { file: File[] }>({
@@ -19,18 +20,19 @@ export const BugImg = () => {
   });
 };
 
-export const BugPost = (param: BugProp, option: MutateOptions) => {
+export const BugPost = () => {
   return useMutation({
-    ...option,
-    mutationFn: async () => {
-      try {
-        await instance.post(`/bug/message`, {
-          ...param,
-          model: "WEB",
-        });
-      } catch (error) {
-        throw error;
-      }
+    mutationFn: async (param: BugProp) => {
+      await instance.post(`/bug/message`, {
+        ...param,
+        model: "WEB",
+      });
+    },
+    onSuccess: () => {
+      toast.success("버그제보가 완료되었습니다!");
+    },
+    onError: () => {
+      toast.error("버그제보에 실패하였습니다. 잠시후 다시 시도해 주세요");
     },
   });
 };
