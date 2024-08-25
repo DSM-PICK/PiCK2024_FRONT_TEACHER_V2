@@ -65,12 +65,10 @@ export const ImgModal = ({ isOpen, onClick, onClose }: ImgModalProp) => {
 
   const onCancle = () => {
     onClose();
-    setImages([]);
   };
 
   const AddImg = () => {
     onClick(images);
-    setImages([]);
     onClose();
   };
 
@@ -99,7 +97,6 @@ export const ImgModal = ({ isOpen, onClick, onClose }: ImgModalProp) => {
           <OtherText>또는</OtherText>
         </OtherContent>
         <ImgInput
-          contentEditable="true"
           placeholder="이미지를 복사 붙여넣기 해주세요"
           onPaste={handlePaste}
         />
