@@ -10,19 +10,13 @@ const MoveOkClassroom = () => {
   const TabContent = ["2층", "3층", "4층"];
   const [selectedTab, setSelectedTab] = useState(0);
 
-  const { data: ReqClassRoom, refetch: RequestClassRommData } =
-    RequestClassRoom(selectedTab + 2, "OK");
+  const { data: ReqClassRoom } = RequestClassRoom(selectedTab + 2, "OK");
 
   const handleTabClick = (index: number) => {
     setSelectedTab(index);
   };
-
-  useEffect(() => {
-    RequestClassRommData();
-  }, [selectedTab]);
-
   return (
-    <Layout title="교실 이동 수락" subtitle={getToday()}>
+    <Layout title="교실 이동 현황" subtitle={getToday()}>
       <Tab
         content={TabContent}
         onClick={handleTabClick}
@@ -30,7 +24,7 @@ const MoveOkClassroom = () => {
       />
       {ReqClassRoom?.map((item) => (
         <ClassMove
-          key={item.id}
+          key={item.user_id}
           selected={false}
           userInfo={getStudentString(item)}
           pre={item.move}

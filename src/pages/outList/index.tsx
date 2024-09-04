@@ -30,6 +30,7 @@ const OutList = () => {
   };
 
   const { selectedStudents, handleAcceptListClick } = useAcceptListSelection();
+  const disabled = !selectedStudents.length;
 
   useEffect(() => {
     ReApplication();
@@ -68,9 +69,15 @@ const OutList = () => {
             />
           ))}
         </div>
-        <Button width="100%" onClick={StudentReturnSchool}>
-          복귀시키기
-        </Button>
+        <BottomButton>
+          <Button
+            width="100%"
+            disabled={disabled}
+            onClick={StudentReturnSchool}
+          >
+            복귀시키기
+          </Button>
+        </BottomButton>
       </Layout>
     </>
   );
@@ -88,7 +95,11 @@ const Title = styled.p`
   font-weight: ${theme.font.body[2].fontweight};
   color: ${theme.color.gray[500]};
 `;
-const DropdownWrap = styled.div`
-  display: flex;
-  gap: 8px;
+
+const BottomButton = styled.div`
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  left: 0;
+  padding: 0px 6%;
 `;
