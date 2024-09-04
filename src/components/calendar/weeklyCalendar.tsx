@@ -40,7 +40,7 @@ const WeeklyCalendar = ({
             <Day
               key={index}
               $isSelectedDate={isSelectedDate(date)}
-              onClick={() => onDateSelect(date)}
+              onClick={() => onDateSelect(date.toString())}
             >
               {format(date, "d")}
             </Day>

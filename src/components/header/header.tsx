@@ -36,14 +36,14 @@ const Header = () => {
   return (
     <HeaderWrap>
       <LeftContent>
-        <Img
+        <img
           onClick={() => {
             router("/main");
           }}
           src={TextLogo}
           alt=""
         />
-        <div>강해민 선생님</div>
+        <div>{name}</div>
       </LeftContent>
       <img
         src={MenuBar}
@@ -74,5 +74,3 @@ const LeftContent = styled.div`
   align-items: center;
   gap: 16px;
 `;
-
-const Img = styled.img``;
