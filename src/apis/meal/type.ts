@@ -1,8 +1,17 @@
 export interface TodayMealsType {
   date: string;
   meals: {
-    breakfast: string[];
-    lunch: string[];
-    dinner: string[];
+    breakfast: {
+      cal: string;
+      menu: string[];
+    };
+    lunch: {
+      cal: string;
+      menu: string[];
+    };
+    dinner: {
+      cal: string;
+      menu: string[];
+    };
   };
 }
