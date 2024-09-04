@@ -31,7 +31,7 @@ export default OutRequest;
 
 const Container = styled.div<{ selected: boolean }>`
   width: 100%;
-  border: 2px solid
+  border: 1px solid
     ${({ selected }) =>
       selected ? theme.color.main[500] : theme.color.gray[50]};
   background-color: ${theme.color.gray[50]};
