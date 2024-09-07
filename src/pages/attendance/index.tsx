@@ -16,7 +16,8 @@ const Attendance = () => {
 
   const { data: GetCheckList, refetch: ReGetCheckList } = AttendanceCheck(
     selectedGrade,
-    selectedClass
+    selectedClass,
+    selectedTab + 8
   );
 
   const handleTabClick = (index: number) => {
@@ -37,7 +38,7 @@ const Attendance = () => {
 
   return (
     <Layout
-      title="출석 체크"
+      title="자습시간 출결"
       right={
         <>
           <Dropdown
@@ -58,7 +59,7 @@ const Attendance = () => {
         <AttendanceList
           key={index}
           userInfo={getStudentString(item)}
-          status={item.status6}
+          status={item.status}
         />
       ))}
     </Layout>
