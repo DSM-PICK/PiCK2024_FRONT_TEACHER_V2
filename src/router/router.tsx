@@ -10,7 +10,9 @@ import OutAccept from "@/pages/outAccept";
 import OutList from "@/pages/outList";
 import PreviousList from "@/pages/preList";
 import PreviousDetail from "@/pages/preList/detail";
+import WrappedCalendarComponents from "@/pages/selfStudy";
 import CalendarComponents from "@/pages/selfStudy";
+import { element } from "prop-types";
 import { createBrowserRouter } from "react-router-dom";
 
 export const Router = createBrowserRouter([
@@ -70,6 +72,10 @@ export const Router = createBrowserRouter([
       {
         path: "calendar",
         element: <CalendarComponents />,
+      },
+      {
+        path: "selfStudy",
+        element: <WrappedCalendarComponents />,
       },
     ],
   },
