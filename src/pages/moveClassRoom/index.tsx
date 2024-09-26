@@ -19,6 +19,7 @@ const MoveClassroom = () => {
 
   const { selectedStudents, handleAcceptListClick } = useAcceptListSelection();
 
+  const disabled = !selectedStudents.length;
   const { data: ReqClassRoom, refetch: RequestClassRoomData } =
     RequestClassRoom(selectedTab + 2, "QUIET");
   const { mutate: Accept } = AcceptClassroom();
@@ -30,7 +31,7 @@ const MoveClassroom = () => {
       {
         onSuccess: () => {
           alert("성공");
-          window.location.reload();
+          RequestClassRoomData();
         },
         onError: () => {
           console.log("실패");
@@ -43,20 +44,21 @@ const MoveClassroom = () => {
     setSelectedTab(index);
   };
 
-  useEffect(() => {
-    RequestClassRoomData();
-  }, [selectedTab]);
-
   return (
     <Layout
       title="교실 이동 수락"
       subtitle={getToday()}
       right={
         <ButtonWrap>
-          <Button onClick={handleOK(false)} width="65px">
+          <Button
+            onClick={handleOK(false)}
+            disabled={disabled}
+            error={true}
+            width="65px"
+          >
             거절
           </Button>
-          <Button onClick={handleOK(true)} width="65px">
+          <Button onClick={handleOK(true)} disabled={disabled} width="65px">
             수락
           </Button>
         </ButtonWrap>
@@ -69,23 +71,27 @@ const MoveClassroom = () => {
       />
       {ReqClassRoom?.map((item) => (
         <ClassMove
-          key={item.id}
-          selected={selectedStudents.includes(item.id)}
+          key={item.user_id}
+          selected={selectedStudents.includes(item.user_id)}
           userInfo={getStudentString(item)}
           pre={item.move}
           next={item.classroom_name}
           time={`${item.start_period}교시 ~ ${item.end_period}교시`}
-          onClick={() => handleAcceptListClick(item.id, getStudentString(item))}
+          onClick={() =>
+            handleAcceptListClick(item.user_id, getStudentString(item))
+          }
         />
       ))}
-      <Button
-        onClick={() => {
-          router("ok");
-        }}
-        width="100%"
-      >
-        교실 이동 학생 보기
-      </Button>
+      <BottomButton>
+        <Button
+          onClick={() => {
+            router("ok");
+          }}
+          width="100%"
+        >
+          교실 이동 학생 보기
+        </Button>
+      </BottomButton>
     </Layout>
   );
 };
@@ -96,4 +102,12 @@ const ButtonWrap = styled.div`
   height: 34px;
   display: flex;
   gap: 10px;
+`;
+
+const BottomButton = styled.div`
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  left: 0;
+  padding: 0px 6%;
 `;

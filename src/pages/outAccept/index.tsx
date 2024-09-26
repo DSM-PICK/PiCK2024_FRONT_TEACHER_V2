@@ -4,6 +4,7 @@ import Dropdown from "@/components/dropdown/dropdown";
 import Layout from "@/components/layout/layout";
 import OutRequest from "@/components/outRequest/outRequest";
 import useAcceptListSelection from "@/hooks/userSelect";
+import useAcceptListSelectionStore from "@/stores/handleAcceptList";
 import { theme } from "@/styles/theme";
 import { AllOption, AllclassOptions } from "@/types/dropdown";
 import { getToday } from "@/utils/date";
@@ -38,7 +39,8 @@ const OutAccept = () => {
   };
 
   const { selectedStudentName, selectedStudents, handleAcceptListClick } =
-    useAcceptListSelection();
+    useAcceptListSelectionStore();
+  const disabled = !selectedStudents.length;
 
   useEffect(() => {
     ReApplication();
@@ -58,10 +60,15 @@ const OutAccept = () => {
       subtitle={getToday()}
       right={
         <ButtonWrap>
-          <Button onClick={Change(false)} width="65px">
+          <Button
+            onClick={Change(false)}
+            error
+            disabled={disabled}
+            width="65px"
+          >
             거절
           </Button>
-          <Button onClick={Change(true)} width="65px">
+          <Button onClick={Change(true)} disabled={disabled} width="65px">
             수락
           </Button>
         </ButtonWrap>

@@ -59,7 +59,7 @@ const StatusDrop = ({ status, onChange }: StatusProps) => {
     const selected = attendanceOptions.find(
       (option) => option.value === selectedOption
     );
-    return selected ? selected.label : "선택";
+    return selected ? selected.label : status;
   };
 
   return (

@@ -3,6 +3,8 @@ import { Router } from "./router/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { GlobalStyle, theme } from "./styles/theme";
 import { ThemeProvider } from "styled-components";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,6 +19,7 @@ const queryClient = new QueryClient({
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
+      <ToastContainer autoClose={2000} />
       <QueryClientProvider client={queryClient}>
         <GlobalStyle />
         <RouterProvider router={Router} />
