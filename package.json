@@ -17,13 +17,14 @@
     "react-router-dom": "^6.24.0",
     "react-scripts": "5.0.1",
     "react-swipeable": "^7.0.1",
+    "react-toastify": "^10.0.5",
     "storybook": "^8.2.1",
     "styled-components": "^6.1.9",
     "typescript": "^4.4.2",
     "upgrade": "^1.1.0",
     "vite": "^5.3.1",
     "vite-plugin-svgr": "^4.2.0",
-    "zustand": "^4.5.2"
+    "zustand": "^4.5.4"
   },
   "scripts": {
     "start": "vite",
