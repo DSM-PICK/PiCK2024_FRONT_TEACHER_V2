@@ -35,8 +35,6 @@ const WeeklyCalendar = ({
     trackMouse: true,
   });
 
-  console.log(selectedDate);
-
   return (
     <Container {...handlers}>
       <img src={upArrow} onClick={onBackToMonthlyClick} />
