@@ -8,10 +8,10 @@ interface CalendarBodyProp {
   onClickDate: (date: string) => void;
 }
 
-const CalendarBody: React.FC<CalendarBodyProp> = ({ onClickDate }) => {
-  const { dispatch } = useCalendarContext();
+const CalendarBody = ({ onClickDate }: CalendarBodyProp) => {
+  const { dispatch, daysInMonth, selectedDate, currentDate } =
+    useCalendarContext();
   const weeks = ["일", "월", "화", "수", "목", "금", "토"];
-  const { daysInMonth, selectedDate, currentDate } = useCalendarContext();
 
   const handleChangeMonth = () => {
     dispatch.handleNextMonth();

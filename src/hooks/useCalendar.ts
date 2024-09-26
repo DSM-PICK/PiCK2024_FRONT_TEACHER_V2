@@ -8,15 +8,13 @@ import {
   startOfMonth,
   startOfWeek,
   subMonths,
+  subWeeks,
+  addWeeks,
 } from "date-fns";
 import { useState } from "react";
 
 const useCalendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [currentYear, currentMonth, currentDay] = format(
-    currentDate,
-    "yyyy-MM-dd"
-  ).split("-");
   const [selectedDate, setSelectedDate] = useState<string>(
     format(new Date(), "yyyy-MM-dd")
   );
@@ -31,6 +29,20 @@ const useCalendar = () => {
     end: endOfLastWeek,
   });
 
+  const startCurrentWeek = startOfWeek(currentDate, { weekStartsOn: 0 });
+  const endCurrentWeek = endOfWeek(currentDate, { weekStartsOn: 0 });
+
+  const daysInWeeks = eachDayOfInterval({
+    start: startCurrentWeek,
+    end: endCurrentWeek,
+  }).map((day) => ({
+    date: format(day, "yyyy-MM-dd"),
+    year: format(day, "yyyy"),
+    month: format(day, "MM"),
+    day: format(day, "dd"),
+    dayIndexOfWeek: getDay(day),
+  }));
+
   const handlePrevMonth = () => {
     setCurrentDate((prevDate) => subMonths(prevDate, 1));
   };
@@ -39,9 +51,18 @@ const useCalendar = () => {
     setCurrentDate((prevDate) => addMonths(prevDate, 1));
   };
 
+  const handlePreWeeks = () => {
+    setCurrentDate((prevDate) => subWeeks(prevDate, 1));
+  };
+
+  const handleNexTWeeks = () => {
+    setCurrentDate((prevDate) => addWeeks(prevDate, 1));
+  };
+
   const handleSelectDate = (date: string) => {
     setSelectedDate(date);
   };
+
   const daysInMonth = days.map((day) => ({
     date: format(day, "yyyy-MM-dd"),
     year: format(day, "yyyy"),
@@ -52,14 +73,17 @@ const useCalendar = () => {
 
   return {
     currentDate: {
-      year: currentYear,
-      month: currentMonth,
-      day: currentDay,
+      year: format(currentDate, "yyyy"),
+      month: format(currentDate, "MM"),
+      day: format(currentDate, "dd"),
     },
     daysInMonth,
+    daysInWeeks,
     dispatch: {
       handlePrevMonth,
       handleNextMonth,
+      handlePreWeeks,
+      handleNexTWeeks,
     },
     selectedDate: {
       date: selectedDate,
@@ -67,4 +91,5 @@ const useCalendar = () => {
     },
   };
 };
+
 export default useCalendar;

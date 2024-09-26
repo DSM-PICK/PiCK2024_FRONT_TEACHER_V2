@@ -8,9 +8,12 @@ interface DateInfo {
 interface CalendarContextType {
   currentDate: DateInfo;
   daysInMonth: (DateInfo & { date: string; dayIndexOfWeek: number })[];
+  daysInWeeks: (DateInfo & { date: string; dayIndexIfWeek: number })[];
   dispatch: {
     handlePrevMonth: () => void;
     handleNextMonth: () => void;
+    handlePreWeeks: () => void;
+    handleNexTWeeks: () => void;
   };
   selectedDate: {
     date: string;
