@@ -1,12 +1,12 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { selectSelfStudTeacher, todaySelfStudTeacher } from "./type";
+import { SelfStudTeacher } from "./type";
 import { instance } from "..";
 import { getFullToday } from "@/utils/date";
 
 const router = "/self-study";
 
 export const TodaySelfStudyList = () => {
-  return useQuery<todaySelfStudTeacher[]>({
+  return useQuery<SelfStudTeacher[]>({
     queryKey: ["todaySelfStudTeacher"],
     queryFn: async () => {
       const { data } = await instance.get(
@@ -21,7 +21,7 @@ export const useSelectDaySelfStudyList = (date: string) => {
   return useQuery({
     queryKey: ["useSelectDaySelfStudyList", date],
     queryFn: async () => {
-      const { data } = await instance.get<selectSelfStudTeacher[]>(
+      const { data } = await instance.get<SelfStudTeacher[]>(
         `${router}/today?date=${date}`
       );
       return data;

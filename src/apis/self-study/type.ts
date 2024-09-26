@@ -1,9 +1,4 @@
-export interface todaySelfStudTeacher {
-  floor: number;
-  teacher_name: string;
-}
-
-export interface selectSelfStudTeacher {
+export interface SelfStudTeacher {
   floor: number;
   teacher_name: string;
 }

@@ -25,7 +25,7 @@ const WeeklyCalendar = ({
   };
 
   const handleChangeNextWeeks = () => {
-    dispatch.handleNexTWeeks();
+    dispatch.handleNextWeeks();
   };
 
   const handlers = useSwipeable({
@@ -53,7 +53,7 @@ const WeeklyCalendar = ({
           {daysInWeeks?.map((date, index) => (
             <Day
               key={index}
-              $isSelectedDate={selectedDate.toString() === date.date}
+              $isSelectedDate={selectedDate === date.date}
               onClick={() => onDateSelect(date.date)}
             >
               {date.day}

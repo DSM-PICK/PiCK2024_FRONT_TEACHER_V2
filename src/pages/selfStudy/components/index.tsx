@@ -6,7 +6,11 @@ import useCalendarContext from "@/components/calendar/useCalendarContext";
 import downArrow from "@/assets/svg/downarrow.svg";
 import { theme } from "@/styles/theme";
 
-const CalendarComponents = ({ onDateChange }) => {
+interface CalendarComponentsProps {
+  onDateChange: (date: string) => void;
+}
+
+const CalendarComponents = ({ onDateChange }: CalendarComponentsProps) => {
   const [isMonthlyView, setIsMonthlyView] = useState(false);
   const { selectedDate } = useCalendarContext();
 
@@ -45,7 +49,9 @@ const CalendarComponents = ({ onDateChange }) => {
   );
 };
 
-const WrappedCalendarComponents = ({ onDateChange }) => (
+const WrappedCalendarComponents = ({
+  onDateChange,
+}: CalendarComponentsProps) => (
   <Calendar>
     <CalendarComponents onDateChange={onDateChange} />
   </Calendar>

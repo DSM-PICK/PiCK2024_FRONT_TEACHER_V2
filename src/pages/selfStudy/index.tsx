@@ -7,12 +7,12 @@ import { getFullToday } from "@/utils/date";
 import { useSelectDaySelfStudyList } from "@/apis/self-study";
 
 const SelfStudyPage = () => {
-  const [dates, setDates] = useState<string>(getFullToday());
+  const [date, setDate] = useState<string>(getFullToday());
 
   const { data: selectTeacherListData } = useSelectDaySelfStudyList(dates);
 
   const handleDateChange = (newDate: string) => {
-    setDates(newDate);
+    setDate(newDate);
   };
 
   function formatDate(dateString: string) {
@@ -24,21 +24,21 @@ const SelfStudyPage = () => {
 
   console.log(selectTeacherListData);
 
-  const today = getFullToday() === dates;
+  const today = getFullToday() === date;
 
   return (
     <div>
       <Header />
       <Content>
         <Title>
-          <SelectedDay today={!today}>{formatDate(dates)}</SelectedDay>
+          <SelectedDay today={!today}>{formatDate(date)}</SelectedDay>
           <SelectedDay today={today}>
             {today ? "오늘의 자습 감독" : "자습 감독"} 선생님 입니다
           </SelectedDay>
         </Title>
         {selectTeacherListData?.length !== 0 ? (
-          selectTeacherListData?.map((item) => (
-            <TeacherList>
+          selectTeacherListData?.map((item, index) => (
+            <TeacherList key={index}>
               <FloorText>{item.floor}층</FloorText>
               <TeacherText>{item.teacher_name} 선생님</TeacherText>
             </TeacherList>
