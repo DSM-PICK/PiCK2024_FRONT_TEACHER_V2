@@ -4,9 +4,10 @@ import { format, startOfWeek, addDays, isSameDay } from "date-fns";
 import { theme } from "@/styles/theme";
 import upArrow from "@/assets/svg/upArrow.svg";
 import useCalendarContext from "./useCalendarContext";
+import { useSwipeable } from "react-swipeable";
 
 interface WeeklyCalendarProps {
-  selectedDate: Date;
+  selectedDate: string;
   onBackToMonthlyClick: () => void;
   onDateSelect: (date: string) => void;
 }
@@ -15,17 +16,28 @@ const WeeklyCalendar = ({
   selectedDate,
   onBackToMonthlyClick,
   onDateSelect,
-}:WeeklyCalendarProps) => {
-  const { currentDate } = useCalendarContext();
-  const startDate = startOfWeek(selectedDate, { weekStartsOn: 0 });
+}: WeeklyCalendarProps) => {
+  const { currentDate, dispatch, daysInWeeks } = useCalendarContext();
   const weeks = ["일", "월", "화", "수", "목", "금", "토"];
-  const daysOfWeek = Array.from({ length: 7 }, (_, i) => addDays(startDate, i));
-  const isSelectedDate = (date: Date) => isSameDay(date, selectedDate);
+
+  const handleChangeWeeks = () => {
+    dispatch.handlePreWeeks();
+  };
+
+  const handleChangeNextWeeks = () => {
+    dispatch.handleNextWeeks();
+  };
+
+  const handlers = useSwipeable({
+    onSwipedLeft: handleChangeNextWeeks,
+    onSwipedRight: handleChangeWeeks,
+    preventScrollOnSwipe: true,
+    trackMouse: true,
+  });
 
   return (
-    <Container>
+    <Container {...handlers}>
       <img src={upArrow} onClick={onBackToMonthlyClick} />
-
       <DateTitle>
         {currentDate.year}년 {currentDate.month}월
       </DateTitle>
@@ -36,13 +48,13 @@ const WeeklyCalendar = ({
           ))}
         </DayWrapper>
         <Header>
-          {daysOfWeek.map((date, index) => (
+          {daysInWeeks?.map((date, index) => (
             <Day
               key={index}
-              $isSelectedDate={isSelectedDate(date)}
-              onClick={() => onDateSelect(date.toString())}
+              $isSelectedDate={selectedDate === date.date}
+              onClick={() => onDateSelect(date.date)}
             >
-              {format(date, "d")}
+              {date.day}
             </Day>
           ))}
         </Header>
@@ -91,7 +103,7 @@ const Header = styled.div`
   margin-top: 8px;
 `;
 
-const Day = styled.div<{ $isSelectedDate: boolean }>`
+const Day = styled.div<{ $isSelectedDate?: boolean }>`
   height: 48px;
   width: 48px;
   display: flex;

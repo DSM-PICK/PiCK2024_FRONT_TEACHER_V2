@@ -1,63 +1,92 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Calendar from "@/components/calendar";
-import WeeklyCalendar from "@/components/calendar/weeklyCalendar";
-import useCalendarContext from "@/components/calendar/useCalendarContext";
-import downArrow from "@/assets/svg/downarrow.svg";
+import Header from "@/components/header/header";
+import WrappedCalendarComponents from "./components";
+import { styled } from "styled-components";
+import { useState } from "react";
 import { theme } from "@/styles/theme";
+import { getFullToday } from "@/utils/date";
+import { useSelectDaySelfStudyList } from "@/apis/self-study";
 
-const CalendarComponents: React.FC = () => {
-  const [isMonthlyView, setIsMonthlyView] = useState(true);
-  const { selectedDate } = useCalendarContext();
+const SelfStudyPage = () => {
+  const [date, setDate] = useState<string>(getFullToday());
 
-  const handleDateClick = (date: string) => {
-    selectedDate.selectDate(date);
-    setIsMonthlyView(false);
+  const { data: selectTeacherListData } = useSelectDaySelfStudyList(date);
+
+  const handleDateChange = (newDate: string) => {
+    setDate(newDate);
   };
 
-  const handleBackToMonthlyClick = () => {
-    setIsMonthlyView(true);
-  };
+  function formatDate(dateString: string) {
+    if (dateString) {
+      const [year, month, day] = dateString.split("-");
+      return `${month}월 ${day}일`;
+    }
+  }
+
+  const today = getFullToday() === date;
 
   return (
-    <Container>
-      {isMonthlyView ? (
-        <>
-          <img src={downArrow} alt="" onClick={() => setIsMonthlyView(false)} />
-          <Calendar.Header />
-          <Calendar.Body onClickDate={handleDateClick} />
-        </>
-      ) : (
-        <WeeklyCalendar
-          selectedDate={new Date(selectedDate.date)}
-          onBackToMonthlyClick={handleBackToMonthlyClick}
-          onDateSelect={handleDateClick}
-        />
-      )}
-    </Container>
+    <div>
+      <Header />
+      <Content>
+        <Title>
+          <SelectedDay today={!today}>{formatDate(date)}</SelectedDay>
+          <SelectedDay today={today}>
+            {today ? "오늘의 자습 감독" : "자습 감독"} 선생님 입니다
+          </SelectedDay>
+        </Title>
+        {selectTeacherListData?.length !== 0 ? (
+          selectTeacherListData?.map((item, index) => (
+            <TeacherList key={index}>
+              <Text color={theme.color.gray[800]}>{item.floor}층</Text>
+              <Text>{item.teacher_name} 선생님</Text>
+            </TeacherList>
+          ))
+        ) : (
+          <TeacherList>등록된 자습감독 정보가 없습니다</TeacherList>
+        )}
+      </Content>
+      <SubText>웹에서 자습 감독 선생님 변경이 가능합니다.</SubText>
+      <WrappedCalendarComponents onDateChange={handleDateChange} />
+    </div>
   );
 };
 
-const WrappedCalendarComponents = () => (
-  <Calendar>
-    <CalendarComponents />
-  </Calendar>
-);
+export default SelfStudyPage;
 
-export default WrappedCalendarComponents;
+const Content = styled.div`
+  margin-top: 24px;
+  padding: 16px 0px;
+`;
 
-const Container = styled.div`
-  width: 100%;
-  height: fit-content;
-  margin: 0 auto;
+const SubText = styled.p`
+  font-size: ${theme.font.body[4].size};
+  font-weight: ${theme.font.body[4].fontweight};
+  color: ${theme.color.gray[600]};
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  position: absolute;
-  bottom: 0;
-  background-color: ${theme.color.normal.white};
-  border-top-right-radius: 20px;
-  border-top-left-radius: 20px;
-  box-shadow: ${theme["box-shadow"]};
+`;
+
+const SelectedDay = styled.div<{ today: boolean }>`
+  font-size: ${theme.font.heading[4].size};
+  font-weight: ${theme.font.heading[4].fontweight};
+  color: ${({ today }) =>
+    today ? theme.color.main[500] : theme.color.normal.black};
+`;
+
+const TeacherList = styled.div`
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  font-size: ${theme.font.body[1].size};
+  font-weight: ${theme.font.body[1].fontweight};
+`;
+
+const Text = styled.p<{ color?: string }>`
+  font-size: ${theme.font.body[1].size};
+  font-weight: ${theme.font.body[1].fontweight};
+  color: ${(props) => props.color || "inherit"};
+`;
+
+const Title = styled.p`
+  padding: 16px 24px;
 `;
