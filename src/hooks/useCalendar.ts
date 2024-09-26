@@ -55,7 +55,7 @@ const useCalendar = () => {
     setCurrentDate((prevDate) => subWeeks(prevDate, 1));
   };
 
-  const handleNexTWeeks = () => {
+  const handleNextWeeks = () => {
     setCurrentDate((prevDate) => addWeeks(prevDate, 1));
   };
 
@@ -83,7 +83,7 @@ const useCalendar = () => {
       handlePrevMonth,
       handleNextMonth,
       handlePreWeeks,
-      handleNexTWeeks,
+      handleNextWeeks,
     },
     selectedDate: {
       date: selectedDate,

@@ -13,7 +13,7 @@ interface CalendarContextType {
     handlePrevMonth: () => void;
     handleNextMonth: () => void;
     handlePreWeeks: () => void;
-    handleNexTWeeks: () => void;
+    handleNextWeeks: () => void;
   };
   selectedDate: {
     date: string;
