@@ -9,7 +9,7 @@ import { useSelectDaySelfStudyList } from "@/apis/self-study";
 const SelfStudyPage = () => {
   const [date, setDate] = useState<string>(getFullToday());
 
-  const { data: selectTeacherListData } = useSelectDaySelfStudyList(dates);
+  const { data: selectTeacherListData } = useSelectDaySelfStudyList(date);
 
   const handleDateChange = (newDate: string) => {
     setDate(newDate);
@@ -21,8 +21,6 @@ const SelfStudyPage = () => {
       return `${month}월 ${day}일`;
     }
   }
-
-  console.log(selectTeacherListData);
 
   const today = getFullToday() === date;
 
@@ -39,8 +37,8 @@ const SelfStudyPage = () => {
         {selectTeacherListData?.length !== 0 ? (
           selectTeacherListData?.map((item, index) => (
             <TeacherList key={index}>
-              <FloorText>{item.floor}층</FloorText>
-              <TeacherText>{item.teacher_name} 선생님</TeacherText>
+              <Text color={theme.color.gray[800]}>{item.floor}층</Text>
+              <Text>{item.teacher_name} 선생님</Text>
             </TeacherList>
           ))
         ) : (
@@ -83,15 +81,10 @@ const TeacherList = styled.div`
   font-weight: ${theme.font.body[1].fontweight};
 `;
 
-const FloorText = styled.p`
+const Text = styled.p<{ color?: string }>`
   font-size: ${theme.font.body[1].size};
   font-weight: ${theme.font.body[1].fontweight};
-  color: ${theme.color.gray[800]};
-`;
-
-const TeacherText = styled.p`
-  font-size: ${theme.font.body[1].size};
-  font-weight: ${theme.font.body[1].fontweight};
+  color: ${(props) => props.color || "inherit"};
 `;
 
 const Title = styled.p`
