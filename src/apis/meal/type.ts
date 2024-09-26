@@ -1,6 +1,6 @@
 export interface TodayMealsType {
   date: string;
-  meals: {
+  meal_list: {
     breakfast: {
       cal: string;
       menu: string[];
