@@ -14,6 +14,7 @@ const PreviousDetail = () => {
       {detailListData?.application_story.length !== 0
         ? detailListData?.application_story.map((item) => (
             <OutRequest
+              key={item.date}
               userInfo={item.date}
               time={
                 item.end_time
