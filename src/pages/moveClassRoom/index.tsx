@@ -27,7 +27,7 @@ const MoveClassroom = () => {
   const handleOK = (accept: boolean) => () => {
     const statusProp = accept ? "OK" : "NO";
     Accept(
-      { status: statusProp, ids: selectedStudents },
+      { status: statusProp, id_list: selectedStudents },
       {
         onSuccess: () => {
           alert("성공");
@@ -76,7 +76,7 @@ const MoveClassroom = () => {
           userInfo={getStudentString(item)}
           pre={item.move}
           next={item.classroom_name}
-          time={`${item.start_period}교시 ~ ${item.end_period}교시`}
+          time={`${item.start}교시 ~ ${item.end}교시`}
           onClick={() =>
             handleAcceptListClick(item.user_id, getStudentString(item))
           }

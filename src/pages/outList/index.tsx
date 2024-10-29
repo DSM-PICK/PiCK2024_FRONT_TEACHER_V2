@@ -60,7 +60,7 @@ const OutList = () => {
           {Application?.map((item) => (
             <OutRequest
               selected={selectedStudents.includes(item.id)}
-              time={`${item.start_time} - ${item.end_time}`}
+              time={`${item.start} ~ ${item.end}`}
               userInfo={getStudentString(item)}
               reason={item.reason}
               onClick={() =>

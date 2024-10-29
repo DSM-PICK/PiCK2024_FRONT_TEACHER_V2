@@ -27,3 +27,4 @@ yarn-debug.log*3
 yarn-error.log*
 
 *storybook.log
+.vercel

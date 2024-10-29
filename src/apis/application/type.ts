@@ -1,9 +1,9 @@
-export interface ApplicaionList {
+export interface ApplicationListType {
   id: string;
   user_id: string;
-  username: string;
-  start_time: string;
-  end_time: string;
+  user_name: string;
+  start: string;
+  end: string;
   grade: number;
   class_num: number;
   num: number;
