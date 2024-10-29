@@ -22,14 +22,14 @@ const HelfMenu = () => {
 
   return (
     <AlarmWrap>
-      <TestTitle>알림</TestTitle>
+      {/* <TestTitle>알림</TestTitle>
       <HelpContent
         onClick={() => {
           navigate("/alarm");
         }}
         content="알림"
         icon={<img src={Alarm} alt="" />}
-      />
+      /> */}
       <TestTitle>도움말</TestTitle>
       <HelpContent
         onClick={() => {
