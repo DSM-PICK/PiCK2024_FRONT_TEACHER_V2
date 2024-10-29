@@ -25,7 +25,7 @@ const OutAccept = () => {
   const Change = (option: boolean) => () => {
     const statusProp = option ? "OK" : "NO";
     Check(
-      { status: statusProp, ids: selectedStudents },
+      { status: statusProp, id_list: selectedStudents },
       {
         onSuccess: () => {
           alert("성공");
@@ -89,11 +89,11 @@ const OutAccept = () => {
           />
         </DropdownWrap>
       </TopContainer>
-      <div>
+      <Container>
         {Application?.map((item) => (
           <OutRequest
             selected={selectedStudents.includes(item.id)}
-            time={`${item.start_time} - ${item.end_time}`}
+            time={`${item.start} ~ ${item.end}`}
             userInfo={getStudentString(item)}
             reason={item.reason}
             onClick={() =>
@@ -101,7 +101,7 @@ const OutAccept = () => {
             }
           />
         ))}
-      </div>
+      </Container>
     </Layout>
   );
 };
@@ -127,4 +127,10 @@ const Title = styled.p`
 const DropdownWrap = styled.div`
   display: flex;
   gap: 8px;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 `;

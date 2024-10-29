@@ -9,7 +9,7 @@ export interface StoryProps {
 }
 
 export interface DetailStory {
-  username: string;
+  user_name: string;
   application_story: [
     {
       reason: string;
@@ -17,6 +17,6 @@ export interface DetailStory {
       end_time: string;
       date: string;
       type: string;
-    }
+    },
   ];
 }
