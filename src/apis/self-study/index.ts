@@ -28,3 +28,13 @@ export const useSelectDaySelfStudyList = (date: string) => {
     },
   });
 };
+
+export const useCheckToday = () => {
+  return useQuery({
+    queryKey: ["useCheck"],
+    queryFn: async () => {
+      const { data } = await instance.get<string>(`${router}/admin`);
+      return data;
+    },
+  });
+};

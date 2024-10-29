@@ -10,7 +10,7 @@ interface Student {
   grade: number;
   class_num: number;
   num: number;
-  username?: string;
+  user_name?: string;
   name?: string;
 }
 
@@ -24,11 +24,11 @@ export const getStudentString = ({
   grade,
   class_num,
   num,
-  username,
+  user_name,
   name,
 }: Student) => {
   const change = num.toString().length === 1 ? `0${num}` : `${num}`;
-  return `${grade}${class_num}${change} ${username || name}`;
+  return `${grade}${class_num}${change} ${user_name || name}`;
 };
 
 export const setStudentNum = ({ grade, class_num, num }: studentNum) => {

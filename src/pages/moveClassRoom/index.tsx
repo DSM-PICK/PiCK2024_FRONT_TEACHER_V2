@@ -27,7 +27,7 @@ const MoveClassroom = () => {
   const handleOK = (accept: boolean) => () => {
     const statusProp = accept ? "OK" : "NO";
     Accept(
-      { status: statusProp, ids: selectedStudents },
+      { status: statusProp, id_list: selectedStudents },
       {
         onSuccess: () => {
           alert("성공");

@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { instance } from "..";
 import { useState } from "react";
@@ -52,4 +52,14 @@ export const useLogin = () => {
     accessToken,
     refreshToken,
   };
+};
+
+export const useGetTeacherinfo = () => {
+  return useQuery({
+    queryKey: ["teachername"],
+    queryFn: async () => {
+      const { data } = await instance.get(`${router}/my-name`);
+      return data;
+    },
+  });
 };
