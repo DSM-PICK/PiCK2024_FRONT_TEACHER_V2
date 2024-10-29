@@ -18,6 +18,7 @@ export default defineConfig({
         replacement: path.resolve(__dirname, "src/components"),
       },
       { find: "@styles", replacement: path.resolve(__dirname, "src/styles") },
+      { find: "@stores", replacement: path.resolve(__dirname, "src/stores") },
     ],
   },
   build: {

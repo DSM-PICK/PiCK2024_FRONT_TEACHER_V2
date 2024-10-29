@@ -10,18 +10,23 @@ const PreviousDetail = () => {
   const { data: detailListData } = DetailList(id);
 
   return (
-    <Layout title={`${detailListData?.username}의 이전 외출 기록`}>
-      {detailListData
+    <Layout title={`${detailListData?.user_name}의 이전 외출 기록`}>
+      {detailListData?.application_story.length !== 0
         ? detailListData?.application_story.map((item) => (
             <OutRequest
+              key={item.date}
               userInfo={item.date}
-              time={`${item.start_time} - ${item.end_time}`}
+              time={
+                item.end_time
+                  ? `${item.start_time} ~ ${item.end_time}`
+                  : `${item.start_time} ~`
+              }
               reason={item.reason}
               selected={false}
               onClick={() => {}}
             />
           ))
-        : ""}
+        : "외출 기록이 없습니다"}
     </Layout>
   );
 };
