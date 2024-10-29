@@ -66,16 +66,16 @@ export const Router = createBrowserRouter([
         element: <Bug />,
       },
       {
-        path: "selfStudyList",
-        element: <Attendance />,
-      },
-      {
         path: "calendar",
         element: <CalendarComponents />,
       },
       {
         path: "selfStudy",
         element: <WrappedCalendarComponents />,
+      },
+      {
+        path: "attendance",
+        element: <Attendance />,
       },
     ],
   },

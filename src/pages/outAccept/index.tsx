@@ -3,6 +3,7 @@ import Button from "@/components/button/button";
 import Dropdown from "@/components/dropdown/dropdown";
 import Layout from "@/components/layout/layout";
 import OutRequest from "@/components/outRequest/outRequest";
+import Tab from "@/components/tab/tab";
 import useAcceptListSelection from "@/hooks/userSelect";
 import useAcceptListSelectionStore from "@/stores/handleAcceptList";
 import { theme } from "@/styles/theme";
@@ -15,17 +16,23 @@ import { styled } from "styled-components";
 const OutAccept = () => {
   const [selectedGrade, setSelectedGrade] = useState<number>(5);
   const [selectedClass, setSelectedClass] = useState<number>(5);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
 
   const { data: Application, refetch: ReApplication } = useApplicationRequest(
     selectedGrade,
-    selectedClass
+    selectedClass,
+    selectedTab === 0 ? "application" : "early-return"
   );
   const { mutate: Check } = ApplicationChange();
 
   const Change = (option: boolean) => () => {
     const statusProp = option ? "OK" : "NO";
     Check(
-      { status: statusProp, id_list: selectedStudents },
+      {
+        status: statusProp,
+        ids: selectedStudents,
+        type: selectedTab === 0 ? "application" : "early-return",
+      },
       {
         onSuccess: () => {
           alert("성공");
@@ -52,6 +59,10 @@ const OutAccept = () => {
 
   const handleClassChange = (option: number | string) => {
     setSelectedClass(Number(option));
+  };
+
+  const handleTabClick = (index: number) => {
+    setSelectedTab(index);
   };
 
   return (
@@ -89,11 +100,17 @@ const OutAccept = () => {
           />
         </DropdownWrap>
       </TopContainer>
+      <Tab
+        content={["외출", "조기귀가"]}
+        onClick={handleTabClick}
+        selectedIndex={selectedTab}
+        two
+      />
       <Container>
         {Application?.map((item) => (
           <OutRequest
             selected={selectedStudents.includes(item.id)}
-            time={`${item.start} ~ ${item.end}`}
+            time={`${item.start} - ${item.end}`}
             userInfo={getStudentString(item)}
             reason={item.reason}
             onClick={() =>

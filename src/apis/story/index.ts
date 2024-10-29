@@ -5,20 +5,20 @@ import { DetailStory, StoryProps } from "./type";
 const router = "/story";
 
 export const StoryAll = () => {
-  return useQuery<StoryProps[]>({
+  return useQuery({
     queryKey: ["StoryAll"],
     queryFn: async () => {
-      const { data } = await instance.get(`${router}/all`);
+      const { data } = await instance.get<StoryProps[]>(`${router}/all`);
       return data;
     },
   });
 };
 
 export const DetailList = (id: string) => {
-  return useQuery<DetailStory>({
+  return useQuery({
     queryKey: ["DetailList"],
     queryFn: async () => {
-      const { data } = await instance.get(`${router}/query/${id}`);
+      const { data } = await instance.get<DetailStory>(`${router}/query/${id}`);
       return data;
     },
   });

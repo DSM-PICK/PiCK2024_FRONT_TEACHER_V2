@@ -1,6 +1,6 @@
 export interface StoryProps {
   id: string;
-  name: string;
+  user_name: string;
   grade: number;
   class_num: number;
   num: number;
@@ -10,13 +10,11 @@ export interface StoryProps {
 
 export interface DetailStory {
   user_name: string;
-  application_story: [
-    {
-      reason: string;
-      start_time: string;
-      end_time: string;
-      date: string;
-      type: string;
-    },
-  ];
+  application_story: {
+    reason: string;
+    start_time: string;
+    end_time: string;
+    date: string;
+    type: string;
+  }[];
 }
