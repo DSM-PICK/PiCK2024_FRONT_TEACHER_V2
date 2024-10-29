@@ -17,7 +17,7 @@ export const useApplicationRequest = (grade: number, class_num: number) => {
 };
 
 export const ApplicationChange = () => {
-  return useMutation<void, Error, { status: "OK" | "NO"; ids: string[] }>({
+  return useMutation<void, Error, { status: "OK" | "NO"; id_list: string[] }>({
     mutationFn: async (param) => {
       await instance.patch(`${router}/status`, { ...param });
     },

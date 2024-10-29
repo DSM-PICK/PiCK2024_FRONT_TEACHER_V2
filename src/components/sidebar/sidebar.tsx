@@ -38,11 +38,11 @@ const Sidebar = ({ onClick }: SidebarProp) => {
             <MealWrap>
               <MealInfo
                 title="점심"
-                content={TodayMeal?.meals.lunch.menu.slice(0) || []}
+                content={TodayMeal?.meal_list.lunch.menu.slice(0) || []}
               />
               <MealInfo
                 title="저녁"
-                content={TodayMeal?.meals.dinner.menu.slice(0) || []}
+                content={TodayMeal?.meal_list.dinner.menu.slice(0) || []}
               />
             </MealWrap>
           </ContentWrap>

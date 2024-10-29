@@ -1,6 +1,6 @@
 export interface RequestClassRoomType {
   user_id: string;
-  username: string;
+  user_name: string;
   classroom_name: string;
   move: string;
   grade: number;
@@ -12,5 +12,5 @@ export interface RequestClassRoomType {
 
 export interface SubmitClassroom {
   status: "OK" | "NO";
-  ids: string[];
+  id_list: string[];
 }
