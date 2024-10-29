@@ -11,21 +11,21 @@ const PreviousDetail = () => {
 
   return (
     <Layout title={`${detailListData?.user_name}의 이전 외출 기록`}>
-      {detailListData
+      {detailListData?.application_story.length !== 0
         ? detailListData?.application_story.map((item) => (
             <OutRequest
               userInfo={item.date}
               time={
                 item.end_time
                   ? `${item.start_time} ~ ${item.end_time}`
-                  : `${item.start_time}`
+                  : `${item.start_time} ~`
               }
               reason={item.reason}
               selected={false}
               onClick={() => {}}
             />
           ))
-        : ""}
+        : "외출 기록이 없습니다"}
     </Layout>
   );
 };

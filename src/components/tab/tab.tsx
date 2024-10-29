@@ -6,13 +6,15 @@ interface TabProp {
   content: string[];
   onClick: (index: number) => void;
   selectedIndex: number;
+  two?: boolean;
 }
 
-const Tab = ({ content, onClick, selectedIndex }: TabProp) => {
+const Tab = ({ content, onClick, selectedIndex, two }: TabProp) => {
   return (
     <TabContainer>
       {content.map((item, index) => (
         <EachTab
+          two={two}
           key={index}
           selected={index === selectedIndex}
           onClick={() => onClick(index)}
@@ -32,8 +34,8 @@ const TabContainer = styled.div`
   width: 100%;
 `;
 
-const EachTab = styled.div<{ selected: boolean }>`
-  width: 30%;
+const EachTab = styled.div<{ selected: boolean; two?: boolean }>`
+  width: ${(props) => (props.two ? "50%" : "30%")};
   text-align: center;
   font-size: ${theme.font.subTitle[3].size};
   font-weight: ${theme.font.subTitle[3].fontweight};

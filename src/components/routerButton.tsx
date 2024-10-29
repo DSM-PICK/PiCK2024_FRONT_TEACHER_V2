@@ -37,18 +37,18 @@ const RouterButton = () => {
       icon: pre,
       title: "이전 외출 기록",
     },
+    // {
+    //   router: "/afterSchool",
+    //   icon: after,
+    //   title: "방과후 관리",
+    // },
+    // {
+    //   router: "/majorClub",
+    //   icon: major,
+    //   title: "전공동아리 관리",
+    // },
     {
-      router: "/afterSchool",
-      icon: after,
-      title: "방과후 관리",
-    },
-    {
-      router: "/majorClub",
-      icon: major,
-      title: "전공동아리 관리",
-    },
-    {
-      router: "/selfStudy",
+      router: "/attendance",
       icon: self,
       title: "자습 출결",
     },

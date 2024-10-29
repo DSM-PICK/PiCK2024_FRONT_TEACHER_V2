@@ -29,7 +29,7 @@ const MoveOkClassroom = () => {
           userInfo={getStudentString(item)}
           pre={item.move}
           next={item.classroom_name}
-          time={`${item.start_period}교시 ~ ${item.end_period}교시`}
+          time={`${item.start}교시 ~ ${item.end}교시`}
           onClick={() => {}}
         />
       ))}
