@@ -1,10 +1,28 @@
-import Header from "@/components/header";
+import { useGetTeacherinfo } from "@/apis/admin";
+import Header from "@/components/header/header";
 import RouterButton from "@/components/routerButton";
 import { theme } from "@/styles/theme";
 import { getToday, getWeekDay } from "@/utils/date";
 import { styled } from "styled-components";
+import { useEffect } from "react";
+import useHomeRoomInformation from "@/stores/hoomroom";
+import { useCheckToday } from "@/apis/self-study";
 
 const Main = () => {
+  const { data: teacherInfomation } = useGetTeacherinfo();
+  const { data: checkTeacher } = useCheckToday();
+  const { setTeacherInfo } = useHomeRoomInformation();
+
+  useEffect(() => {
+    if (teacherInfomation) {
+      setTeacherInfo({
+        grade: teacherInfomation.grade,
+        class_num: teacherInfomation.class_num,
+        name: teacherInfomation.name,
+      });
+    }
+  }, [teacherInfomation, setTeacherInfo]);
+
   return (
     <div>
       <Header />
@@ -13,7 +31,7 @@ const Main = () => {
           <Date>
             {getToday()} {getWeekDay()}요일
           </Date>
-          <p>강해민 선생님은 오늘 자습감독이 아닙니다.</p>
+          <p>{checkTeacher}</p>
         </SelfCheck>
         <RouterWrap>
           <RouterButton />
@@ -50,6 +68,7 @@ const SelfCheck = styled.div`
 const RouterWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   row-gap: 24px;
   column-gap: 22px;
 `;

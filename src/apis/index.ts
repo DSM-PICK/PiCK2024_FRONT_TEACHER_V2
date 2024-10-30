@@ -1,5 +1,5 @@
-import axios, { AxiosError } from "axios";
 import { cookie } from "@/utils/auth";
+import axios, { AxiosError } from "axios";
 
 const BASEURL = import.meta.env.VITE_SERVER_BASE_URL;
 
@@ -34,43 +34,33 @@ refreshInstance.interceptors.request.use(
   },
   (error: AxiosError) => Promise.reject(error)
 );
-
 instance.interceptors.response.use(
   (response) => response,
-  async (error: AxiosError<AxiosError>) => {
+  async (error: AxiosError) => {
     if (axios.isAxiosError(error) && error.response) {
-      const { status } = error.response.data;
+      const { status } = error.response;
       if (status === 401) {
         const refreshToken = cookie.get("refresh_token");
-        if (refreshToken) {
-          try {
-            const res = await axios.put(
-              `${BASEURL}/admin/refresh`,
-              {},
-              {
-                headers: {
-                  "X-Refresh-Token": `Bearer ${refreshToken}`,
-                },
-              }
-            );
-            const { data } = res.data;
-            const accessToken = data.accessToken;
-            cookie.set("access_token", accessToken);
-            if (error.config) {
-              error.config.headers.Authorization = `Bearer ${accessToken}`;
-              return axios.request(error.config);
-            }
-          } catch {
-            throw error;
-          }
-        } else {
-          throw error;
+        try {
+          await axios
+            .put(`${BASEURL}/admin/refresh`, null, {
+              headers: {
+                "X-Refresh-Token": `${refreshToken}`,
+              },
+            })
+            .then((response) => {
+              const data = response.data;
+              cookie.set("access_token", data.access_token);
+              cookie.set("refresh_token", data.refresh_token);
+            })
+            .catch(() => {
+              window.location.href = "login";
+            });
+        } catch (refreshError) {
+          return Promise.reject(refreshError);
         }
-      } else {
-        throw error;
       }
-    } else {
-      throw error;
     }
+    return Promise.reject(error);
   }
 );

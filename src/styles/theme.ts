@@ -76,11 +76,15 @@ export const theme = {
         fontweight: "500",
       },
       2: {
-        size: "12px",
+        size: "16px",
         fontweight: "500",
       },
       3: {
-        size: "10px",
+        size: "14px",
+        fontweight: "500",
+      },
+      4: {
+        size: "12px",
         fontweight: "500",
       },
     },
@@ -96,7 +100,7 @@ export const theme = {
     },
     label: {
       1: {
-        size: "16px",
+        size: "20px",
         fontweight: "500",
       },
       2: {
