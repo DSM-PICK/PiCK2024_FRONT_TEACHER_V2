@@ -6,3 +6,8 @@ export interface AttendType {
   num: number;
   status: string;
 }
+
+export interface ChangeStatus {
+  user_id: string;
+  status: string;
+}

@@ -1,9 +1,10 @@
-import { AttendanceCheck } from "@/apis/attendance";
+import { AttendanceCheck, FixStatus } from "@/apis/attendance";
 import { AttendType } from "@/apis/attendance/type";
 import AttendanceList from "@/components/attendList";
 import Dropdown from "@/components/dropdown/dropdown";
 import Layout from "@/components/layout/layout";
 import Tab from "@/components/tab/tab";
+import useAttendanceStore from "@/stores/useAttendance";
 import { classOptions, gradeOptions } from "@/types/dropdown";
 import { getStudentString } from "@/utils/util";
 import { useEffect, useState } from "react";
@@ -57,7 +58,9 @@ const Attendance = () => {
       <Tab content={tab} onClick={handleTabClick} selectedIndex={selectedTab} />
       {GetCheckList?.map((item, index) => (
         <AttendanceList
-          key={index}
+          period={selectedTab + 8}
+          id={item.id}
+          key={item.id}
           userInfo={getStudentString(item)}
           status={item.status}
         />
