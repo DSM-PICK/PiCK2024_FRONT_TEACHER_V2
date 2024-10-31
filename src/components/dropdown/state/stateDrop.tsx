@@ -93,16 +93,15 @@ const DropdownContent = styled.div<{ state: string }>`
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  background-color: ${({ state }) =>
-    state === "ATTENDANCE"
-      ? theme.color.main[500]
-      : state === "GO_OUT"
-        ? theme.color.gray[200]
-        : state === "MOVEMENT"
-          ? theme.color.gray[800]
-          : state === "DISALLOWE"
-            ? theme.color.error[300]
-            : theme.color.gray[200]};
+  background-color: ${({ state }) => {
+    const stateColors = {
+      ATTENDANCE: theme.color.main[500],
+      GO_OUT: theme.color.gray[200],
+      MOVEMENT: theme.color.gray[800],
+      DISALLOWE: theme.color.error[300],
+    };
+    return stateColors[state] || theme.color.gray[200];
+  }};
 `;
 
 const DropList = styled.div`
