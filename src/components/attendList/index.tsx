@@ -2,22 +2,45 @@ import { theme } from "@/styles/theme";
 import { styled } from "styled-components";
 import StatusDrop from "../dropdown/state/stateDrop";
 import { useState } from "react";
+import { FixStatus } from "@/apis/attendance";
 
 interface AttendanceListProps {
   userInfo: string;
   status: string;
+  id: string;
+  period: number;
 }
 
-const AttendanceList = ({ userInfo, status }: AttendanceListProps) => {
+const AttendanceList = ({
+  userInfo,
+  status,
+  id,
+  period,
+}: AttendanceListProps) => {
   const [state, setState] = useState<string>(status);
+  const { mutate: attendanceSave } = FixStatus();
+
+  const AttandenceSaveFn = async (newStatus: string) => {
+    attendanceSave({
+      period: period,
+      data: [
+        {
+          user_id: id,
+          status: newStatus,
+        },
+      ],
+    });
+  };
 
   const handleStatusChange = (option: string) => {
     setState(option);
+    AttandenceSaveFn(option);
   };
+
   return (
     <Wrap>
       <UserInfoText>{userInfo}</UserInfoText>
-      <StatusDrop status={status} onChange={handleStatusChange} />
+      <StatusDrop status={state} onChange={handleStatusChange} />
     </Wrap>
   );
 };
