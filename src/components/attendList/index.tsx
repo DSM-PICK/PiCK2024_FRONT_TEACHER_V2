@@ -11,7 +11,7 @@ interface AttendanceListProps {
   period: number;
 }
 
-const AttendanceList = ({
+export const AttendanceList = ({
   userInfo,
   status,
   id,
@@ -33,11 +33,12 @@ const AttendanceList = ({
   };
 
   const handleStatusChange = (option: string) => {
-    try{
-          setState(option);
-           await AttandenceSaveFn(option);
-         } catch (error) {
-        setState(state);
+    try {
+      setState(option);
+      AttandenceSaveFn(option);
+    } catch (error) {
+      setState(state);
+    }
   };
 
   return (
@@ -47,8 +48,6 @@ const AttendanceList = ({
     </Wrap>
   );
 };
-
-export default AttendanceList;
 
 const Wrap = styled.div`
   display: flex;

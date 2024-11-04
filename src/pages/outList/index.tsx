@@ -56,7 +56,7 @@ const OutList = () => {
         <TopContainer>
           <Title>외출자 목록</Title>
         </TopContainer>
-        <div>
+        <OutListWrap>
           {Application?.map((item) => (
             <OutRequest
               selected={selectedStudents.includes(item.id)}
@@ -68,7 +68,7 @@ const OutList = () => {
               }
             />
           ))}
-        </div>
+        </OutListWrap>
         <BottomButton>
           <Button
             width="100%"
@@ -102,4 +102,12 @@ const BottomButton = styled.div`
   width: 100%;
   left: 0;
   padding: 0px 6%;
+`;
+
+export const OutListWrap = styled.div`
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  gap: 12px;
 `;

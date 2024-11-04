@@ -123,7 +123,12 @@ export const theme = {
 };
 
 export const GlobalStyle = createGlobalStyle`
+@font-face {
+  font-family: 'Wanted-sans';
+  src: url("https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css");
+}
   *, *::before, *::after {
+    font-family: 'Wanted-sans';
     box-sizing: border-box;
     margin: 0;
     padding: 0;

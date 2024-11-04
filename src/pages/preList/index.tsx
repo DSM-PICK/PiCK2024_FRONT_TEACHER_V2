@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
 const PreviousList = () => {
-  const { data: AllData } = StoryAll();
+  const { data: AllData, isLoading: Loading } = StoryAll();
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const router = useNavigate();
@@ -35,6 +35,7 @@ const PreviousList = () => {
           value={searchTerm}
           onChange={handleInputChange}
         />
+        {Loading && <p>로딩중</p>}
         {filteredStudents?.map((item) => (
           <Prelist
             onClick={() => {
