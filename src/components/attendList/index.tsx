@@ -32,10 +32,10 @@ export const AttendanceList = ({
     });
   };
 
-  const handleStatusChange = (option: string) => {
+  const handleStatusChange = async (option: string) => {
     try {
       setState(option);
-      AttandenceSaveFn(option);
+      await AttandenceSaveFn(option);
     } catch (error) {
       setState(state);
     }

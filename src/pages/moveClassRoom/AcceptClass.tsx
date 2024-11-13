@@ -22,17 +22,21 @@ const MoveOkClassroom = () => {
         onClick={handleTabClick}
         selectedIndex={selectedTab}
       />
-      {ReqClassRoom?.map((item) => (
-        <ClassMove
-          key={item.user_id}
-          selected={false}
-          userInfo={getStudentString(item)}
-          pre={item.move}
-          next={item.classroom_name}
-          time={`${item.start}교시 ~ ${item.end}교시`}
-          onClick={() => {}}
-        />
-      ))}
+      {ReqClassRoom?.length! > 0 ? (
+        ReqClassRoom?.map((item) => (
+          <ClassMove
+            key={item.user_id}
+            selected={false}
+            userInfo={getStudentString(item)}
+            pre={item.move}
+            next={item.classroom_name}
+            time={`${item.start}교시 ~ ${item.end}교시`}
+            onClick={() => {}}
+          />
+        ))
+      ) : (
+        <p>교실이동중인 학생이 없습니다</p>
+      )}
     </Layout>
   );
 };

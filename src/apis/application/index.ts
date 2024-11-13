@@ -1,8 +1,9 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { ApplicationListType } from "./type";
+import { ApplicationListType, EarlyReturnType } from "./type";
 import { instance } from "..";
 
 const router = "/application";
+const erouter = "/early-return";
 
 export const useApplicationRequest = (
   grade: number,
@@ -55,6 +56,16 @@ export const ReturnSchool = () => {
           "Content-Type": "application/json",
         },
       });
+    },
+  });
+};
+
+export const useGetEarlyReturnList = () => {
+  return useQuery({
+    queryKey: ["EarlyReturnList"],
+    queryFn: async () => {
+      const { data } = await instance.get<EarlyReturnType[]>(`${erouter}/ok`);
+      return data;
     },
   });
 };

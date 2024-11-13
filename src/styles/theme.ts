@@ -125,8 +125,11 @@ export const theme = {
 export const GlobalStyle = createGlobalStyle`
 @font-face {
   font-family: 'Wanted-sans';
-  src: url("https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css");
+  src: url('assets/font/WantedSansVariable.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
+
   *, *::before, *::after {
     font-family: 'Wanted-sans';
     box-sizing: border-box;
