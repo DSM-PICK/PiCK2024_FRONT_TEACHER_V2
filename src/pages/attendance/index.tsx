@@ -1,6 +1,5 @@
 import { AttendanceCheck } from "@/apis/attendance";
-import { AttendType } from "@/apis/attendance/type";
-import AttendanceList from "@/components/attendList";
+import { AttendanceList } from "@/components/attendList";
 import { useEffect, useState } from "react";
 import Dropdown from "@/components/dropdown/dropdown";
 import Layout from "@/components/layout/layout";
