@@ -16,12 +16,12 @@ const Main = () => {
   useEffect(() => {
     if (teacherInfomation) {
       setTeacherInfo({
-        grade: teacherInfomation.grade,
-        class_num: teacherInfomation.class_num,
+        grade: 2,
+        class_num: 2,
         name: teacherInfomation.name,
       });
     }
-  }, [teacherInfomation, setTeacherInfo]);
+  }, [teacherInfomation]);
 
   return (
     <div>

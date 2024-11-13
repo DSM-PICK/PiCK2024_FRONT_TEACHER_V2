@@ -49,6 +49,7 @@
     "@storybook/test": "^8.2.1",
     "prop-types": "15.8.1",
     "tsconfig-paths-webpack-plugin": "^4.1.0",
+    "vite-plugin-html": "^3.2.2",
     "webpack": "5.92.1"
   }
 }

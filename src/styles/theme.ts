@@ -123,6 +123,13 @@ export const theme = {
 };
 
 export const GlobalStyle = createGlobalStyle`
+@font-face {
+  font-family: 'Wanted-sans';
+  src: url('assets/font/WantedSansVariable.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
   *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
