@@ -33,11 +33,12 @@ const AttendanceList = ({
   };
 
   const handleStatusChange = (option: string) => {
-    try{
-          setState(option);
-           await AttandenceSaveFn(option);
-         } catch (error) {
-        setState(state);
+    try {
+      setState(option);
+      await AttandenceSaveFn(option);
+    } catch (error) {
+      setState(state);
+    }
   };
 
   return (

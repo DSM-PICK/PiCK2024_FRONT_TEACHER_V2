@@ -69,19 +69,23 @@ const MoveClassroom = () => {
         onClick={handleTabClick}
         selectedIndex={selectedTab}
       />
-      {ReqClassRoom?.map((item) => (
-        <ClassMove
-          key={item.user_id}
-          selected={selectedStudents.includes(item.user_id)}
-          userInfo={getStudentString(item)}
-          pre={item.move}
-          next={item.classroom_name}
-          time={`${item.start}교시 ~ ${item.end}교시`}
-          onClick={() =>
-            handleAcceptListClick(item.user_id, getStudentString(item))
-          }
-        />
-      ))}
+      {ReqClassRoom?.length! > 0 ? (
+        ReqClassRoom?.map((item) => (
+          <ClassMove
+            key={item.user_id}
+            selected={selectedStudents.includes(item.user_id)}
+            userInfo={getStudentString(item)}
+            pre={item.move}
+            next={item.classroom_name}
+            time={`${item.start}교시 ~ ${item.end}교시`}
+            onClick={() =>
+              handleAcceptListClick(item.user_id, getStudentString(item))
+            }
+          />
+        ))
+      ) : (
+        <p>교실이동 신청한 학생이 없습니다</p>
+      )}
       <BottomButton>
         <Button
           onClick={() => {

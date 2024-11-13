@@ -21,7 +21,7 @@ const Main = () => {
         name: teacherInfomation.name,
       });
     }
-  }, [teacherInfomation, setTeacherInfo]);
+  }, [teacherInfomation]);
 
   return (
     <div>

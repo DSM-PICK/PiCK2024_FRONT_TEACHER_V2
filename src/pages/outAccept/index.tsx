@@ -6,6 +6,7 @@ import OutRequest from "@/components/outRequest/outRequest";
 import Tab from "@/components/tab/tab";
 import useAcceptListSelection from "@/hooks/userSelect";
 import useAcceptListSelectionStore from "@/stores/handleAcceptList";
+import useHomeRoomInformation from "@/stores/hoomroom";
 import { theme } from "@/styles/theme";
 import { AllOption, AllclassOptions } from "@/types/dropdown";
 import { getToday } from "@/utils/date";
@@ -14,8 +15,14 @@ import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 
 const OutAccept = () => {
-  const [selectedGrade, setSelectedGrade] = useState<number>(5);
-  const [selectedClass, setSelectedClass] = useState<number>(5);
+  const { teacherInfo } = useHomeRoomInformation();
+  console.log(teacherInfo);
+  const [selectedGrade, setSelectedGrade] = useState<number>(
+    teacherInfo?.grade || 5
+  );
+  const [selectedClass, setSelectedClass] = useState<number>(
+    teacherInfo?.class_num || 5
+  );
   const [selectedTab, setSelectedTab] = useState<number>(0);
 
   const { data: Application, refetch: ReApplication } = useApplicationRequest(
@@ -54,11 +61,19 @@ const OutAccept = () => {
   }, [selectedGrade, selectedClass]);
 
   const handleGradeChange = (option: number | string) => {
-    setSelectedGrade(Number(option));
+    const newGrade = Number(option);
+    setSelectedClass(
+      newGrade === 5 ? 5 : selectedClass === 5 ? 1 : selectedClass
+    );
+    setSelectedGrade(newGrade);
   };
 
   const handleClassChange = (option: number | string) => {
-    setSelectedClass(Number(option));
+    const newGrade = Number(option);
+    setSelectedGrade(
+      newGrade === 5 ? 5 : selectedGrade === 5 ? 1 : selectedGrade
+    );
+    setSelectedClass(newGrade);
   };
 
   const handleTabClick = (index: number) => {

@@ -1,19 +1,27 @@
-import { AttendanceCheck, FixStatus } from "@/apis/attendance";
+import { AttendanceCheck } from "@/apis/attendance";
 import { AttendType } from "@/apis/attendance/type";
 import AttendanceList from "@/components/attendList";
+import { useEffect, useState } from "react";
 import Dropdown from "@/components/dropdown/dropdown";
 import Layout from "@/components/layout/layout";
 import Tab from "@/components/tab/tab";
-import useAttendanceStore from "@/stores/useAttendance";
+import useDropdownInformation from "@/stores/dropdown";
 import { classOptions, gradeOptions } from "@/types/dropdown";
 import { getStudentString } from "@/utils/util";
-import { useEffect, useState } from "react";
 
 const Attendance = () => {
   const tab = ["8교시", "9교시", "10교시"];
-  const [selectedTab, setSelectedTab] = useState<number>(0);
-  const [selectedGrade, setSelectedGrade] = useState<number>(1);
-  const [selectedClass, setSelectedClass] = useState<number>(1);
+  const { dropdownInfo, setDropdownInfo } = useDropdownInformation();
+
+  const [selectedGrade, setSelectedGrade] = useState<number>(
+    dropdownInfo?.grade || 1
+  );
+  const [selectedClass, setSelectedClass] = useState<number>(
+    dropdownInfo?.class_num || 1
+  );
+  const [selectedTab, setSelectedTab] = useState<number>(
+    dropdownInfo?.tab || 0
+  );
 
   const { data: GetCheckList, refetch: ReGetCheckList } = AttendanceCheck(
     selectedGrade,
@@ -23,14 +31,31 @@ const Attendance = () => {
 
   const handleTabClick = (index: number) => {
     setSelectedTab(index);
+    setDropdownInfo({
+      grade: selectedGrade,
+      class_num: selectedGrade,
+      tab: index,
+    });
   };
 
   const handleGradeChange = (option: number | string) => {
-    setSelectedGrade(Number(option));
+    const grade = Number(option);
+    setSelectedGrade(grade);
+    setDropdownInfo({
+      grade: grade,
+      class_num: selectedClass,
+      tab: selectedTab,
+    });
   };
 
   const handleClassChange = (option: number | string) => {
-    setSelectedClass(Number(option));
+    const classNum = Number(option);
+    setSelectedClass(classNum);
+    setDropdownInfo({
+      grade: selectedGrade,
+      class_num: classNum,
+      tab: selectedTab,
+    });
   };
 
   useEffect(() => {
@@ -56,7 +81,7 @@ const Attendance = () => {
       }
     >
       <Tab content={tab} onClick={handleTabClick} selectedIndex={selectedTab} />
-      {GetCheckList?.map((item, index) => (
+      {GetCheckList?.map((item) => (
         <AttendanceList
           period={selectedTab + 8}
           id={item.id}
