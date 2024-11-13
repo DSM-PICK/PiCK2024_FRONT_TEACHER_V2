@@ -32,7 +32,7 @@ const AttendanceList = ({
     });
   };
 
-  const handleStatusChange = (option: string) => {
+  const handleStatusChange = async (option: string) => {
     try {
       setState(option);
       await AttandenceSaveFn(option);
