@@ -2,29 +2,29 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface HomeRoomState {
-  teacherInfo: {
+  dropdownInfo: {
     grade: number;
     class_num: number;
-    name: string;
+    tab?: number;
   } | null;
-  setTeacherInfo: (info: {
+  setDropdownInfo: (info: {
     grade: number;
     class_num: number;
-    name: string;
+    tab: number;
   }) => void;
 }
 
-const useHomeRoomInformation = create(
+const useDropdownInformation = create(
   persist<HomeRoomState>(
     (set) => ({
-      teacherInfo: null,
-      setTeacherInfo: (info) => set({ teacherInfo: info }),
+      dropdownInfo: null,
+      setDropdownInfo: (info) => set({ dropdownInfo: info }),
     }),
     {
-      name: "home-room-info",
+      name: "dropdownInfo",
       getStorage: () => localStorage,
     }
   )
 );
 
-export default useHomeRoomInformation;
+export default useDropdownInformation;

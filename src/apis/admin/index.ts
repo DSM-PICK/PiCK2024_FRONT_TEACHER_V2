@@ -3,6 +3,7 @@ import axios from "axios";
 import { instance } from "..";
 import { useState } from "react";
 import { cookie } from "@/utils/auth";
+import useHomeRoomInformation from "@/stores/hoomroom";
 
 const router = "/admin";
 
@@ -55,11 +56,13 @@ export const useLogin = () => {
 };
 
 export const useGetTeacherinfo = () => {
+  const { teacherInfo } = useHomeRoomInformation();
   return useQuery({
     queryKey: ["teachername"],
     queryFn: async () => {
       const { data } = await instance.get(`${router}/my-name`);
       return data;
     },
+    enabled: !teacherInfo,
   });
 };
