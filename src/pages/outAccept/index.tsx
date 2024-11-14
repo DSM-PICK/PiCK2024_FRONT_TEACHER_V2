@@ -16,7 +16,6 @@ import { styled } from "styled-components";
 
 const OutAccept = () => {
   const { teacherInfo } = useHomeRoomInformation();
-  console.log(teacherInfo);
   const [selectedGrade, setSelectedGrade] = useState<number>(
     teacherInfo?.grade || 5
   );

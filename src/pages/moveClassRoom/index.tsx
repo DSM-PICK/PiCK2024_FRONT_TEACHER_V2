@@ -17,7 +17,8 @@ const MoveClassroom = () => {
 
   const router = useNavigate();
 
-  const { selectedStudents, handleAcceptListClick } = useAcceptListSelection();
+  const { selectedStudents, handleAcceptListClick, resetSelection } =
+    useAcceptListSelection();
 
   const disabled = !selectedStudents.length;
   const { data: ReqClassRoom, refetch: RequestClassRoomData } =
@@ -30,6 +31,7 @@ const MoveClassroom = () => {
       { status: statusProp, id_list: selectedStudents },
       {
         onSuccess: () => {
+          resetSelection();
           alert("성공");
           RequestClassRoomData();
         },

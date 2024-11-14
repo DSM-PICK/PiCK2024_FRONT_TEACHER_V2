@@ -30,10 +30,11 @@ const StatusDrop = ({ status, onChange }: StatusProps) => {
 
   const attendanceOptions = [
     { value: "ATTENDANCE", label: "출석" },
-    { value: "GO_OUT", label: "외출" },
     { value: "MOVEMENT", label: "이동" },
-    { value: "DISALLOWE", label: "무단" },
+    { value: "GO_HOME", label: "귀가" },
+    { value: "GO_OUT", label: "외출" },
     { value: "PICNIC", label: "현체" },
+    { value: "DISALLOWE", label: "무단" },
     { value: "EMPLOYMENT", label: "취업" },
   ];
 
@@ -108,6 +109,7 @@ const DropList = styled.div`
   position: absolute;
   width: 100%;
   max-height: 160px;
+  overflow: auto;
   background-color: ${theme.color.normal.white};
   font-size: 12px;
   border: 1px solid ${theme.color.gray[200]};
