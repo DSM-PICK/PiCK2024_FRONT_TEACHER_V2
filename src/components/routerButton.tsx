@@ -2,8 +2,6 @@ import moveIcon from "@/assets/svg/moveClass.svg";
 import outAccept from "@/assets/svg/outAccept.svg";
 import outList from "@/assets/svg/outList.svg";
 import pre from "@/assets/svg/previousList.svg";
-import after from "@/assets/svg/afterSchool.svg";
-import major from "@/assets/svg/majorClub.svg";
 import self from "@/assets/svg/selfStudy.svg";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";

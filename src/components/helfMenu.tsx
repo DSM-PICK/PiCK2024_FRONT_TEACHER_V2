@@ -1,7 +1,8 @@
 import { styled } from "styled-components";
 import { theme } from "@/styles/theme";
 import { useState } from "react";
-import HelpContent from "../helpContent/helpcontent";
+import HelpContent from "./helfcontent";
+import Alarm from "@/assets/svg/alram.svg";
 import Face from "@/assets/svg/face.svg";
 import Bug from "@/assets/svg/bug.svg";
 import Out from "@/assets/svg/out.svg";
@@ -20,18 +21,18 @@ const HelfMenu = () => {
 
   return (
     <AlarmWrap>
-      {/* <TestTitle>알림</TestTitle>
+      <TestTitle>알림</TestTitle>
       <HelpContent
         onClick={() => {
           navigate("/alarm");
         }}
         content="알림"
         icon={<img src={Alarm} alt="" />}
-      /> */}
+      />
       <TestTitle>도움말</TestTitle>
       <HelpContent
         onClick={() => {
-          navigate("/calendar");
+          navigate("/selfStudyList");
         }}
         content="자습감독 선생님 확인"
         icon={<img src={Face} />}

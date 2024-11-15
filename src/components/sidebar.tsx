@@ -1,37 +1,22 @@
 import { theme } from "@/styles/theme";
 import { styled } from "styled-components";
-import MealInfo from "../meals/meal";
+import MealInfo from "./meal";
 import { TodayMeals } from "@/apis/meal";
 import { getToday } from "@/utils/date";
 import { TodaySelfStudyList } from "@/apis/self-study";
-import HelfMenu from "../helpMenu/helpMenu";
-import { useEffect, useState } from "react";
+import HelfMenu from "./helfMenu";
 
 interface SidebarProp {
   onClick: () => void;
 }
 
 const Sidebar = ({ onClick }: SidebarProp) => {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
   const { data: TodayMeal } = TodayMeals();
   const { data: selfStudyData } = TodaySelfStudyList();
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
-  useEffect(() => {
-    if (!isOpen) {
-      setTimeout(() => {
-        onClick();
-      }, 500);
-    }
-  }, [isOpen, onClick]);
-
   return (
     <>
-      <Menu onClick={handleClose} />
-      <Container className={isOpen ? "open" : "close"}>
+      <Menu onClick={onClick} />
+      <Container>
         <Top>
           <ContentWrap>
             <SemiTitle>오늘의 급식({getToday()})</SemiTitle>
@@ -40,6 +25,7 @@ const Sidebar = ({ onClick }: SidebarProp) => {
                 title="점심"
                 content={TodayMeal?.meal_list.lunch.menu.slice(0) || []}
               />
+
               <MealInfo
                 title="저녁"
                 content={TodayMeal?.meal_list.dinner.menu.slice(0) || []}
@@ -98,45 +84,15 @@ const SemiTitle = styled.p`
 const MealWrap = styled.div`
   display: flex;
   gap: 16px;
-  @media (max-width: 350px) {
-    display: flex;
-    flex-direction: column;
-  }
 `;
 
 const Container = styled.div`
-  position: fixed;
+  position: absolute;
   height: 100%;
-  overflow: scroll;
   background-color: ${theme.color.normal.white};
   z-index: 2;
   right: 0;
   top: 0;
-  &.open {
-    animation: slidein 0.5s forwards;
-  }
-
-  &.close {
-    animation: slideout 0.5s forwards;
-  }
-
-  @keyframes slidein {
-    from {
-      transform: translateX(100%);
-    }
-    to {
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes slideout {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(100%);
-    }
-  }
 `;
 
 const SelfStudyListWrap = styled.div`

@@ -1,5 +1,5 @@
 import { instance } from "..";
-import { useMutation, MutateOptions } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { BugProp } from "./type";
 import { toast } from "react-toastify";
 
@@ -25,7 +25,7 @@ export const BugPost = () => {
     mutationFn: async (param: BugProp) => {
       await instance.post(`/bug/message`, {
         ...param,
-        model: "WEB",
+        model: "TEACHER",
       });
     },
     onSuccess: () => {
