@@ -1,39 +1,36 @@
-import { useState } from "react";
-
-interface AcceptListSelection {
+import create from "zustand";
+interface AcceptListSelectionState {
   selectedStudents: string[];
   selectedStudentName: string[];
   handleAcceptListClick: (id: string, name: string) => void;
+  resetSelection: () => void;
 }
+const useSelectionStore = create<AcceptListSelectionState>((set) => ({
+  selectedStudents: [],
+  selectedStudentName: [],
+  handleAcceptListClick: (id: string, name: string): void =>
+    set((state) => {
+      const isStudentSelected = state.selectedStudents.includes(id);
+      const updatedStudents = isStudentSelected
+        ? state.selectedStudents.filter(
+            (selectedStudent) => selectedStudent !== id
+          )
+        : [...state.selectedStudents, id];
+      const updatedNames = isStudentSelected
+        ? state.selectedStudentName.filter(
+            (selectedStudentName) => selectedStudentName !== name
+          )
+        : [...state.selectedStudentName, name];
+      return {
+        selectedStudents: updatedStudents,
+        selectedStudentName: updatedNames,
+      };
+    }),
+  resetSelection: () =>
+    set(() => ({
+      selectedStudents: [],
+      selectedStudentName: [],
+    })),
+}));
 
-const useAcceptListSelection = (): AcceptListSelection => {
-  const [selectedStudents, setSelectedStudents] = useState<string[]>([]);
-  const [selectedStudentName, setSelectedStudentName] = useState<string[]>([]);
-
-  const handleAcceptListClick = (id: string, name: string) => {
-    const isStudentSelected = selectedStudents.includes(id);
-    if (isStudentSelected) {
-      setSelectedStudents((prevSelectedStudents) =>
-        prevSelectedStudents.filter((selectedStudent) => selectedStudent !== id)
-      );
-      setSelectedStudentName((prevSelectedStudentName) =>
-        prevSelectedStudentName.filter(
-          (selectedStudentName) => selectedStudentName !== name
-        )
-      );
-    } else {
-      setSelectedStudents((prevSelectedStudents) => [
-        ...prevSelectedStudents,
-        id,
-      ]);
-      setSelectedStudentName((prevSelectedStudentName) => [
-        ...prevSelectedStudentName,
-        name,
-      ]);
-    }
-  };
-
-  return { selectedStudents, selectedStudentName, handleAcceptListClick };
-};
-
-export default useAcceptListSelection;
+export default useSelectionStore;

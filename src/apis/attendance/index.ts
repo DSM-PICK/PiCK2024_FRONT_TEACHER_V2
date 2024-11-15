@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { AttendType } from "./type";
+import { AttendType, ChangeStatus } from "./type";
 import { instance } from "..";
 
 const router = "/attendance";
@@ -16,6 +16,17 @@ export const AttendanceCheck = (
         `${router}/grade?grade=${grade}&class_num=${class_num}&period=${period}`
       );
       return data;
+    },
+  });
+};
+
+export const FixStatus = () => {
+  return useMutation<void, Error, { period: number; data: ChangeStatus[] }>({
+    mutationFn: async (param) => {
+      await instance.patch(
+        `/attendance/modify?period=${param.period}`,
+        param.data
+      );
     },
   });
 };

@@ -15,6 +15,7 @@ const MoveOkClassroom = () => {
   const handleTabClick = (index: number) => {
     setSelectedTab(index);
   };
+
   return (
     <Layout title="교실 이동 현황" subtitle={getToday()}>
       <Tab

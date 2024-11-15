@@ -137,3 +137,11 @@ const BottomButton = styled.div`
   left: 0;
   padding: 0px 6%;
 `;
+
+export const OutListWrap = styled.div`
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  gap: 12px;
+`;

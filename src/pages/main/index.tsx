@@ -16,8 +16,8 @@ const Main = () => {
   useEffect(() => {
     if (teacherInfomation) {
       setTeacherInfo({
-        grade: 2,
-        class_num: 2,
+        grade: teacherInfomation.grade,
+        class_num: teacherInfomation.class_num,
         name: teacherInfomation.name,
       });
     }

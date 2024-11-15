@@ -131,6 +131,7 @@ export const GlobalStyle = createGlobalStyle`
 }
 
   *, *::before, *::after {
+    font-family: 'Wanted-sans';
     box-sizing: border-box;
     margin: 0;
     padding: 0;

@@ -25,7 +25,7 @@ export const BugPost = () => {
     mutationFn: async (param: BugProp) => {
       await instance.post(`/bug/message`, {
         ...param,
-        model: "WEB",
+        model: "TEACHER",
       });
     },
     onSuccess: () => {
