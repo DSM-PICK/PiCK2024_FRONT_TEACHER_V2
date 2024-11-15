@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import Calendar from "@/components/calendar";
 import WeeklyCalendar from "@/components/calendar/weeklyCalendar";

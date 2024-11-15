@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { SelfStudTeacher } from "./type";
 import { instance } from "..";
 import { getFullToday } from "@/utils/date";

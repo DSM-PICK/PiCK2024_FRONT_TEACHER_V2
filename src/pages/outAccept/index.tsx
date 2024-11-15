@@ -4,7 +4,6 @@ import Dropdown from "@/components/dropdown/dropdown";
 import Layout from "@/components/layout/layout";
 import OutRequest from "@/components/outRequest/outRequest";
 import Tab from "@/components/tab/tab";
-import useAcceptListSelection from "@/hooks/userSelect";
 import useAcceptListSelectionStore from "@/stores/handleAcceptList";
 import useHomeRoomInformation from "@/stores/hoomroom";
 import { theme } from "@/styles/theme";
@@ -51,7 +50,7 @@ const OutAccept = () => {
     );
   };
 
-  const { selectedStudentName, selectedStudents, handleAcceptListClick } =
+  const { selectedStudents, handleAcceptListClick } =
     useAcceptListSelectionStore();
   const disabled = !selectedStudents.length;
 

@@ -1,6 +1,5 @@
 import { theme } from "@/styles/theme";
 import { styled } from "styled-components";
-import { useState } from "react";
 
 interface TabProp {
   content: string[];
