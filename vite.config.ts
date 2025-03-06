@@ -10,7 +10,7 @@ export default defineConfig({
   plugins: [react(), svgr(), envCompatiblePlugin()],
   assetsInclude: ["**/*.jpg"],
   server: {
-    port: 3001,
+    port: 3000,
   },
   resolve: {
     alias: [
