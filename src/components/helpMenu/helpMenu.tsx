@@ -1,8 +1,7 @@
 import { styled } from "styled-components";
 import { theme } from "@/styles/theme";
-import React, { useState } from "react";
+import { useState } from "react";
 import HelpContent from "../helpContent/helpcontent";
-import Alarm from "@/assets/svg/alram.svg";
 import Face from "@/assets/svg/face.svg";
 import Bug from "@/assets/svg/bug.svg";
 import Out from "@/assets/svg/out.svg";
@@ -11,13 +10,12 @@ import { cookie } from "@/utils/auth";
 
 const HelfMenu = () => {
   const navigate = useNavigate();
-  const [logoutModal, setLogoutModal] = useState<boolean>(false);
 
   const Logout = () => {
     cookie.remove("access_token");
     cookie.remove("refresh_token");
     localStorage.clear();
-    navigate("/login");
+    navigate("/");
   };
 
   return (

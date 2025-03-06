@@ -2,7 +2,7 @@ import { theme } from "@/styles/theme";
 import { styled } from "styled-components";
 import MealInfo from "../meals/meal";
 import { TodayMeals } from "@/apis/meal";
-import { getFullToday, getToday, getWeekDay } from "@/utils/date";
+import { getToday } from "@/utils/date";
 import { TodaySelfStudyList } from "@/apis/self-study";
 import HelfMenu from "../helpMenu/helpMenu";
 import { useEffect, useState } from "react";

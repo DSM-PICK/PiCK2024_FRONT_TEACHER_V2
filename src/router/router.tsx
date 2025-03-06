@@ -1,5 +1,3 @@
-import Calendar from "@/components/calendar";
-import CalendarHeader from "@/components/calendar/CalendarHeader";
 import Attendance from "@/pages/attendance";
 import Bug from "@/pages/bug";
 import Login from "@/pages/login";
@@ -12,7 +10,6 @@ import PreviousList from "@/pages/preList";
 import PreviousDetail from "@/pages/preList/detail";
 import WrappedCalendarComponents from "@/pages/selfStudy";
 import CalendarComponents from "@/pages/selfStudy";
-import { element } from "prop-types";
 import { createBrowserRouter } from "react-router-dom";
 
 export const Router = createBrowserRouter([

@@ -1,7 +1,7 @@
 import { cookie } from "@/utils/auth";
 import axios, { AxiosError } from "axios";
 
-const BASEURL = import.meta.env.VITE_SERVER_BASE_URL;
+const BASEURL = process.env.VITE_SERVER_BASE_URL
 
 export const instance = axios.create({
   baseURL: BASEURL,
@@ -54,7 +54,7 @@ instance.interceptors.response.use(
               cookie.set("refresh_token", data.refresh_token);
             })
             .catch(() => {
-              window.location.href = "login";
+              window.location.href = "/";
             });
         } catch (refreshError) {
           return Promise.reject(refreshError);

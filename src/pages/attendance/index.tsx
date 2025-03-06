@@ -32,7 +32,7 @@ const Attendance = () => {
     setSelectedTab(index);
     setDropdownInfo({
       grade: selectedGrade,
-      class_num: selectedGrade,
+      class_num: selectedClass,
       tab: index,
     });
   };

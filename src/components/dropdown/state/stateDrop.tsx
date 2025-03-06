@@ -34,7 +34,7 @@ const StatusDrop = ({ status, onChange }: StatusProps) => {
     { value: "GO_HOME", label: "귀가" },
     { value: "GO_OUT", label: "외출" },
     { value: "PICNIC", label: "현체" },
-    { value: "DISALLOWE", label: "무단" },
+    { value: "DISALLOWE", label: "결과" },
     { value: "EMPLOYMENT", label: "취업" },
   ];
 

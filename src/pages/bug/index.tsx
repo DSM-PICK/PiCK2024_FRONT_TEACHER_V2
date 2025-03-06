@@ -5,7 +5,7 @@ import Input from "@/components/input";
 import Layout from "@/components/layout/layout";
 import ImgModal from "@/components/modal/imgModal";
 import { theme } from "@/styles/theme";
-import React, { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent } from "react";
 import { styled } from "styled-components";
 import BugReportImg from "@/assets/svg/bugreport.svg";
 import { useNavigate } from "react-router-dom";
@@ -116,7 +116,7 @@ const Bug = () => {
                   {data.file_name.map((item, index) => (
                     <ImgWrap key={index}>
                       <img
-                        src={`${import.meta.env.VITE_PUBLIC_FILE_APP}${item}`}
+                        src={`${process.env.VITE_PUBLIC_FILE_APP}${item}`}
                         key={index}
                       />
                       <DeleteImgButton onClick={() => handleRemoveImage(index)}>

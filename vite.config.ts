@@ -1,15 +1,20 @@
 import * as path from "path";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
-import svgr from "vite-plugin-svgr";
-import { createHtmlPlugin } from "vite-plugin-html";
+import envCompatiblePlugin from 'vite-plugin-env-compatible'
+
 
 export default defineConfig({
   base: "./",
-  plugins: [react(), svgr()],
+  plugins: [react(), envCompatiblePlugin()],
   assetsInclude: ["**/*.jpg"],
   server: {
-    port: 4002,
+    host: "0.0.0.0",
+    port: 3000,
+    allowedHosts: [
+      "pick-teacher-stag.xquare.app",
+      "pick-teacher.xquare.app",
+    ],
   },
   resolve: {
     alias: [
@@ -31,6 +36,6 @@ export default defineConfig({
     },
   },
   define: {
-    "process.env": {},
+    "process.env": process.env,
   },
 });

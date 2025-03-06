@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { theme } from "@/styles/theme";
-import React, { useState } from "react";
+import { useState } from "react";
 import HelpContent from "./helfcontent";
 import Alarm from "@/assets/svg/alram.svg";
 import Face from "@/assets/svg/face.svg";
@@ -11,7 +11,6 @@ import { cookie } from "@/utils/auth";
 
 const HelfMenu = () => {
   const navigate = useNavigate();
-  const [logoutModal, setLogoutModal] = useState<boolean>(false);
 
   const Logout = () => {
     cookie.remove("access_token");

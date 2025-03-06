@@ -2,7 +2,7 @@ import { theme } from "@/styles/theme";
 import { styled } from "styled-components";
 import MealInfo from "./meal";
 import { TodayMeals } from "@/apis/meal";
-import { getFullToday, getToday, getWeekDay } from "@/utils/date";
+import { getToday } from "@/utils/date";
 import { TodaySelfStudyList } from "@/apis/self-study";
 import HelfMenu from "./helfMenu";
 
@@ -23,12 +23,12 @@ const Sidebar = ({ onClick }: SidebarProp) => {
             <MealWrap>
               <MealInfo
                 title="점심"
-                content={TodayMeal?.meals.lunch.slice(0) || []}
+                content={TodayMeal?.meal_list.lunch.menu.slice(0) || []}
               />
 
               <MealInfo
                 title="저녁"
-                content={TodayMeal?.meals.dinner.slice(0) || []}
+                content={TodayMeal?.meal_list.dinner.menu.slice(0) || []}
               />
             </MealWrap>
           </ContentWrap>
