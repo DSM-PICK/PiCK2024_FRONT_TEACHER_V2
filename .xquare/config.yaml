@@ -1,7 +1,8 @@
 config:
   name: pick-teacher
   service_type: fe
-  port: 3000
+  port: 3001
+  host: 0.0.0.0
   domain:
     prod: pick-teacher.xquare.app
     stag: pick-teacher-stag.xquare.app
