@@ -116,7 +116,7 @@ const Bug = () => {
                   {data.file_name.map((item, index) => (
                     <ImgWrap key={index}>
                       <img
-                        src={`${import.meta.env.VITE_PUBLIC_FILE_APP}${item}`}
+                        src={`${process.env.VITE_PUBLIC_FILE_APP}${item}`}
                         key={index}
                       />
                       <DeleteImgButton onClick={() => handleRemoveImage(index)}>

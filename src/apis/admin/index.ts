@@ -18,7 +18,7 @@ interface Token {
 }
 
 export const useLogin = () => {
-  const BASEURL = import.meta.env.VITE_SERVER_BASE_URL;
+  const BASEURL = process.env.VITE_SERVER_BASE_URL
 
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [refreshToken, setRefreshToken] = useState<string | null>(null);

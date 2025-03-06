@@ -5133,7 +5133,7 @@ dot-case@^3.0.4:
     no-case "^3.0.4"
     tslib "^2.0.3"
 
-dotenv-expand@^5.1.0:
+dotenv-expand@5.1.0, dotenv-expand@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/dotenv-expand/-/dotenv-expand-5.1.0.tgz#3fbaf020bfd794884072ea26b1e9791d45a629f0"
   integrity sha512-YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA==
@@ -5142,6 +5142,11 @@ dotenv-expand@^8.0.2:
   version "8.0.3"
   resolved "https://registry.yarnpkg.com/dotenv-expand/-/dotenv-expand-8.0.3.tgz#29016757455bcc748469c83a19b36aaf2b83dd6e"
   integrity sha512-SErOMvge0ZUyWd5B0NXMQlDkN+8r+HhVUsxgOO7IoPDOdDRD2JjExpN6y3KnFR66jsJMwSn1pqIivhU5rcJiNg==
+
+dotenv@8.2.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
+  integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
 
 dotenv@^10.0.0:
   version "10.0.0"
@@ -11542,6 +11547,14 @@ vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
+
+vite-plugin-env-compatible@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/vite-plugin-env-compatible/-/vite-plugin-env-compatible-2.0.1.tgz#9f9f3bc973d6d49b5ad41c14f9b66a691f96eac3"
+  integrity sha512-DRrOZTg/W44ojVQQfGSMPEgYQGzp5TeIpt9cpaK35hTOC/b2D7Ffl8/RIgK8vQ0mlnDIUgETcA173bnMEkyzdw==
+  dependencies:
+    dotenv "8.2.0"
+    dotenv-expand "5.1.0"
 
 vite-plugin-html@^3.2.2:
   version "3.2.2"
