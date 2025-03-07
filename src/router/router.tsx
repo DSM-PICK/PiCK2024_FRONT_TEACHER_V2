@@ -2,6 +2,7 @@ import Attendance from "@/pages/attendance";
 import Bug from "@/pages/bug";
 import Login from "@/pages/login";
 import Main from "@/pages/main";
+import Melas from "@/pages/meals";
 import MoveClassroom from "@/pages/moveClassRoom";
 import MoveOkClassroom from "@/pages/moveClassRoom/AcceptClass";
 import OutAccept from "@/pages/outAccept";
@@ -74,6 +75,10 @@ export const Router = createBrowserRouter([
         path: "attendance",
         element: <Attendance />,
       },
+      {
+        path: 'meals',
+        element: <Melas />,
+      }
     ],
   },
 ]);
