@@ -1,12 +1,12 @@
 import { styled } from "styled-components";
 import { theme } from "@/styles/theme";
-import { useState } from "react";
 import HelpContent from "../helpContent/helpcontent";
 import Face from "@/assets/svg/face.svg";
 import Bug from "@/assets/svg/bug.svg";
 import Out from "@/assets/svg/out.svg";
 import { useNavigate } from "react-router-dom";
 import { cookie } from "@/utils/auth";
+import melasIcon from "@/assets/svg/mealIcon.svg";
 
 const HelfMenu = () => {
   const navigate = useNavigate();
@@ -42,6 +42,13 @@ const HelfMenu = () => {
         }}
         content="버그 제보"
         icon={<img src={Bug} alt="" />}
+      />
+      <HelpContent
+        onClick={() => {
+          navigate("/meals");
+        }}
+        content="급식 확인"
+        icon={<img src={melasIcon} />}
       />
       <TestTitle>계정</TestTitle>
       <HelpContent

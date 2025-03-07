@@ -16,3 +16,13 @@ export const TodayMeals = () => {
     },
   });
 };
+
+export function useMonthMeals(date: string) {
+  return useQuery<TodayMealsType>({
+    queryKey: ["monthMeals", date],
+    queryFn: async () => {
+      const { data } = await instance.get(`${router}/date?date=${date}`);
+      return data;
+    },
+  })
+}

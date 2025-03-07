@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { format, startOfWeek, addDays, isSameDay } from "date-fns";
 import { theme } from "@/styles/theme";
 import upArrow from "@/assets/svg/upArrow.svg";
 import useCalendarContext from "./useCalendarContext";
