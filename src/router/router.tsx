@@ -1,3 +1,4 @@
+import { NotFound } from "@/404";
 import Attendance from "@/pages/attendance";
 import Bug from "@/pages/bug";
 import Login from "@/pages/login";
@@ -20,6 +21,10 @@ export const Router = createBrowserRouter([
       {
         path: "",
         element: <Login />,
+      },
+      {
+        path: '*',
+        element: <NotFound />
       },
       {
         path: "main",
