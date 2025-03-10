@@ -44,6 +44,8 @@ const Login = () => {
     );
   };
 
+  const disabled = adminId === "" || password === "";
+
   return (
     <Container>
       <ContentWrap>
@@ -73,7 +75,7 @@ const Login = () => {
           />
         </InputWrap>
       </ContentWrap>
-      <Button width="100%" onClick={SubmitLogin}>
+      <Button width="100%" disabled={disabled} onClick={SubmitLogin}>
         로그인하기
       </Button>
     </Container>
