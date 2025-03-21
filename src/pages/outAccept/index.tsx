@@ -123,7 +123,7 @@ const OutAccept = () => {
         {Application?.map((item) => (
           <OutRequest
             selected={selectedStudents.includes(item.id)}
-            time={`${item.start} - ${item.end}`}
+            time={item.end ? `${item.start} - ${item.end}` : `${item.start} ~`}
             userInfo={getStudentString(item)}
             reason={item.reason}
             onClick={() =>
