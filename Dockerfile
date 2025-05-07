@@ -12,6 +12,7 @@ RUN yarn build
 
 EXPOSE 3000
 
+
 CMD ["yarn", "dev"]
 
 ARG VITE_PUBLIC_FILE_APP
