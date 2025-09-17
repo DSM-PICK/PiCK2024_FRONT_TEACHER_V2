@@ -12,8 +12,8 @@ export default defineConfig({
     host: "0.0.0.0",
     port: 3000,
     allowedHosts: [
-      "pick-teacher-stag.xquare.app",
-      "pick-teacher.xquare.app",
+      "pick-teacher-stag.dsmhs.kr",
+      "pick-teacher.dsmhs.kr",
     ],
   },
   resolve: {
