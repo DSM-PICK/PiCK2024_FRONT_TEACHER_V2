@@ -18,7 +18,7 @@ interface Token {
 }
 
 export const useLogin = () => {
-  const BASEURL = process.env.VITE_SERVER_BASE_URL
+  const BASEURL = process.env.VITE_SERVER_BASE_URL;
 
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [refreshToken, setRefreshToken] = useState<string | null>(null);
@@ -26,7 +26,7 @@ export const useLogin = () => {
   const loginMutation = useMutation<Token, Error, Login>({
     mutationFn: (param: Login) => {
       return axios
-        .post<Token>(`${BASEURL}${router}/login`, {
+        .post<Token>(`${router}/login`, {
           ...param,
         })
         .then((response) => {
