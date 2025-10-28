@@ -1,10 +1,12 @@
 import { useLogin } from "@/apis/admin";
 import Button from "@/components/button/button";
 import Input from "@/components/input";
+import { requestPermission } from "@/firebase";
 import { theme } from "@/styles/theme";
 import { saveToken } from "@/utils/auth";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { styled } from "styled-components";
 
 const Login = () => {
@@ -24,15 +26,19 @@ const Login = () => {
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
     if (event.key === "Enter") {
-      SubmitLogin();
+      submitLogin();
     }
   };
 
   const router = useNavigate();
 
-  const SubmitLogin = () => {
+  const submitLogin = async () => {
+    const token = await requestPermission();
+    if (!token) {
+      toast.error("알림 수신에 거부하셨습니다");
+    }
     login(
-      { admin_id: adminId, password: password },
+      { admin_id: adminId, password: password, device_token: token ?? "" },
       {
         onSuccess: (res) => {
           const accessToken = res.access_token;
@@ -75,7 +81,7 @@ const Login = () => {
           />
         </InputWrap>
       </ContentWrap>
-      <Button width="100%" disabled={disabled} onClick={SubmitLogin}>
+      <Button width="100%" disabled={disabled} onClick={submitLogin}>
         로그인하기
       </Button>
     </Container>
