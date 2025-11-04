@@ -10,6 +10,7 @@ const router = "/admin";
 interface Login {
   admin_id: string;
   password: string;
+  device_token: string;
 }
 
 interface Token {
