@@ -18,10 +18,19 @@ interface Token {
   refresh_token: string;
 }
 
+export interface Signup {
+  account_id: string;
+  password: string;
+  name: string;
+  grade: number;
+  class_num: number;
+  code: string;
+  secret_key: string;
+}
+
+const BASEURL = import.meta.env.VITE_SERVER_BASE_URL;
 
 export const useLogin = () => {
-  const BASEURL = import.meta.env.VITE_SERVER_BASE_URL;
-
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [refreshToken, setRefreshToken] = useState<string | null>(null);
 
@@ -52,6 +61,44 @@ export const useLogin = () => {
 
   return {
     mutate: loginMutation.mutate,
+    accessToken,
+    refreshToken,
+  };
+};
+
+export const useSignup = () => {
+  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [refreshToken, setRefreshToken] = useState<string | null>(null);
+
+  const signupMutation = useMutation({
+    mutationFn: (param: Signup) => {
+      return axios
+        .post(`${BASEURL}${router}/signup`, {
+          ...param,
+        })
+        .then((response) => {
+          const data = response.data;
+          setAccessToken(data.access_token);
+          setRefreshToken(data.refresh_token);
+          cookie.set("access_token", data.access_token);
+          cookie.set("refresh_token", data.refresh_token);
+          return data;
+        })
+        .catch((error) => {
+          throw error;
+        });
+    },
+  });
+
+  if (signupMutation.isError) {
+    cookie.remove("access_token");
+    cookie.remove("refresh_token");
+    cookie.remove("part");
+    console.error(signupMutation.error);
+  }
+
+  return {
+    mutate: signupMutation.mutate,
     accessToken,
     refreshToken,
   };
