@@ -70,10 +70,10 @@ export const useSignup = () => {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [refreshToken, setRefreshToken] = useState<string | null>(null);
 
-  const signupMutation = useMutation({
+  const signupMutation = useMutation<Token, Error, Signup>({
     mutationFn: (param: Signup) => {
       return axios
-        .post(`${BASEURL}${router}/signup`, {
+        .post<Token>(`${BASEURL}${router}/signup`, {
           ...param,
         })
         .then((response) => {

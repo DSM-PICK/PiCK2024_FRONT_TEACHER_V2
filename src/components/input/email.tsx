@@ -126,10 +126,6 @@ export const EmailInput = ({
     }
   };
 
-  useEffect(() => {
-    console.log(disabled);
-  }, [disabled]);
-
   return (
     <Container>
       <Label>{label}</Label>

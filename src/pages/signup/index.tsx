@@ -155,15 +155,15 @@ const Signup = () => {
   };
 
   const handleClickBtn = () => {
-    if (path == "/signup") {
+    if (path === "/signup") {
       navigate("/signup/email");
       setDisabled(true);
       return;
-    } else if (path == "/signup/email") {
+    } else if (path === "/signup/email") {
       navigate("/signup/password");
       setDisabled(true);
       return;
-    } else if (path == "/signup/password") {
+    } else if (path === "/signup/password") {
       navigate("/signup/info");
       setDisabled(true);
       return;
@@ -385,7 +385,7 @@ const Signup = () => {
 
       <S.FixedButtonWrap>
         <Button width="100%" onClick={handleClickBtn} disabled={disabled}>
-          {path == "/signup/info" ? "회원가입" : "다음"}
+          {path === "/signup/info" ? "회원가입" : "다음"}
         </Button>
       </S.FixedButtonWrap>
     </S.SignupWrap>
