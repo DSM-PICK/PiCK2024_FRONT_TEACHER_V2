@@ -1,4 +1,4 @@
-import NotFound from "@/pages/404";
+import NotFound from "@/pages/notFound";
 import Attendance from "@/pages/attendance";
 import Bug from "@/pages/bug";
 import Login from "@/pages/login";

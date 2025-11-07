@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
-// import Button from "./components/button";
-import Button from "../../components/button";
+import Button from "@/components/button";
 import styled from "styled-components";
 
 const NotFound = () => {
