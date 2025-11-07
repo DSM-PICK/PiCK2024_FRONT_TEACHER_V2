@@ -12,6 +12,8 @@ import PreviousList from "@/pages/preList";
 import PreviousDetail from "@/pages/preList/detail";
 import WrappedCalendarComponents from "@/pages/selfStudy";
 import CalendarComponents from "@/pages/selfStudy";
+import Signup from "@/pages/signup";
+import { element } from "prop-types";
 import { createBrowserRouter } from "react-router-dom";
 
 export const Router = createBrowserRouter([
@@ -23,8 +25,12 @@ export const Router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: '*',
-        element: <NotFound />
+        path: "signup/*",
+        element: <Signup />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
       {
         path: "main",
@@ -81,9 +87,9 @@ export const Router = createBrowserRouter([
         element: <Attendance />,
       },
       {
-        path: 'meals',
+        path: "meals",
         element: <Melas />,
-      }
+      },
     ],
   },
 ]);

@@ -15,7 +15,7 @@ const Button = ({
   onClick,
 }: ButtonProps) => {
   return (
-    <ButtonContainer width={width} aria-disabled={disabled} onClick={onClick}>
+    <ButtonContainer width={width} disabled={disabled} onClick={onClick}>
       {children}
     </ButtonContainer>
   );
