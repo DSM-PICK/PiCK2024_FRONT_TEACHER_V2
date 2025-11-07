@@ -53,7 +53,7 @@ export const useLogin = () => {
   });
 
   if (loginMutation.isError) {
-    cookie.remoce("access_token");
+    cookie.remove("access_token");
     cookie.remove("refresh_token");
     cookie.remove("part");
     console.error(loginMutation);
