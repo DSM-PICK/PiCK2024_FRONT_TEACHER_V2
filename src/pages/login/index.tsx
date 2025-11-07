@@ -80,6 +80,10 @@ const Login = () => {
             onKeyDown={handleKeyDown}
           />
         </InputWrap>
+        <p>
+          계정이 없으신가요?
+          <LinkText onClick={() => router("/signup")}>회원가입</LinkText>
+        </p>
       </ContentWrap>
       <Button width="100%" disabled={disabled} onClick={submitLogin}>
         로그인하기
@@ -129,4 +133,15 @@ const InputWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
+`;
+
+export const LinkText = styled.span`
+  margin-left: 2px;
+  font-size: ${theme.font.body[2].size};
+  font-weight: ${theme.font.body[2].fontweight};
+  color: ${theme.color.main[500]};
+  &:active {
+    color: ${theme.color.main[900]};
+    text-decoration: underline;
+  }
 `;
