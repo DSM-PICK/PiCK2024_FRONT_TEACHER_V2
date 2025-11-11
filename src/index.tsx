@@ -13,10 +13,11 @@ const start = async () => {
             .filter((cookie) => !excludes.includes(cookie.name))
             .map((cookie) => cookieStore.delete(cookie.name))
         );
-    } finally {
-      ReactDOM.createRoot(document.getElementById("root")!).render(<App />);
+    } catch (error) {
+      console.error(error);
     }
   }
+  ReactDOM.createRoot(document.getElementById("root")!).render(<App />);
 };
 
 start();
