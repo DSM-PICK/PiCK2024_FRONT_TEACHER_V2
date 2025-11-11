@@ -11,6 +11,7 @@ interface InputProp {
   name?: string;
   value?: string;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  error?: boolean;
 }
 
 const Input = ({
@@ -21,13 +22,14 @@ const Input = ({
   name,
   value,
   onKeyDown,
+  error,
 }: InputProp) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   return (
     <Container>
       <InputLabel>{label}</InputLabel>
-      <InputContainer>
+      <InputContainer error={error}>
         <InputContent
           type={
             type === "password" ? (showPassword ? "text" : "password") : type
@@ -55,13 +57,14 @@ const Input = ({
 
 export default Input;
 
-const InputContainer = styled.div`
+const InputContainer = styled.div<{ error?: boolean }>`
   display: flex;
   width: 100%;
   border-radius: 8px;
   padding: 11px 16px;
   background-color: ${theme.color.gray[50]};
-  border: 1px solid ${theme.color.gray[50]};
+  border: 1px solid
+    ${({ error }) => (error ? theme.color.error[500] : theme.color.gray[50])};
 
   &:hover {
     border: 1px solid ${theme.color.main[500]};
