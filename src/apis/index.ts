@@ -51,9 +51,10 @@ instance.interceptors.response.use(
           window.location.href = "/";
           return Promise.reject(refreshError);
         }
+      } else {
+        const errorMessage = (error.response?.data as any)?.message;
+        if (errorMessage) toast.error(errorMessage);
       }
-      const errorMessage = (error.response?.data as any)?.message;
-      if (errorMessage) toast.error(errorMessage);
     }
     return Promise.reject(error);
   }
