@@ -1,5 +1,6 @@
 import { cookie } from "@/utils/auth";
 import axios, { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
 const BASEURL = import.meta.env.VITE_SERVER_BASE_URL;
 
@@ -50,6 +51,9 @@ instance.interceptors.response.use(
           window.location.href = "/";
           return Promise.reject(refreshError);
         }
+      } else {
+        const errorMessage = (error.response?.data as any)?.message;
+        if (errorMessage) toast.error(errorMessage);
       }
     }
     return Promise.reject(error);
