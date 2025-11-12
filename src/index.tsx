@@ -24,7 +24,6 @@ const CACHE_VERSION_KEY = "pick_cache_version";
       window.location.reload();
     } catch (error) {
       console.error("[CACHE] Failed to clear cache:", error);
-      localStorage.setItem(CACHE_VERSION_KEY, CURRENT_VERSION);
     }
   }
 })();
