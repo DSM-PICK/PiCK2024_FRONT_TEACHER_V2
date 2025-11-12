@@ -1,23 +1,32 @@
 import ReactDOM from "react-dom/client";
 import App from "./App";
+import { version as CURRENT_VERSION } from "../package.json";
 
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .getRegistrations()
-      .then((regs) => {
-        for (const reg of regs) {
-          reg.update();
-        }
-      })
-      .catch((err) => console.error("SW update failed:", err));
+const CACHE_VERSION_KEY = "pick_cache_version";
 
-    navigator.serviceWorker
-      .register("/firebase-messaging-sw.js")
-      .then((reg) => console.log("FCM Service Worker registered:", reg.scope))
-      .catch((err) => console.error("SW registration failed:", err));
-  });
-}
+(async () => {
+  if (!navigator.onLine || !("caches" in window)) return;
+
+  const savedVersion = localStorage.getItem(CACHE_VERSION_KEY);
+
+  if (savedVersion !== CURRENT_VERSION) {
+    try {
+      const keys = await caches.keys();
+      await Promise.all(
+        keys
+          .filter((key) => !key.includes("firebase"))
+          .map((key) => caches.delete(key))
+      );
+
+      localStorage.setItem(CACHE_VERSION_KEY, CURRENT_VERSION);
+      console.log(`[CACHE] Cleared and updated to version ${CURRENT_VERSION}`);
+
+      window.location.reload();
+    } catch (error) {
+      console.error("[CACHE] Failed to clear cache:", error);
+    }
+  }
+})();
 
 const start = async () => {
   const cookieStore = (window as any).cookieStore;
