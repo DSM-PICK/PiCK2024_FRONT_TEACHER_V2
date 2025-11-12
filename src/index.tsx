@@ -1,22 +1,15 @@
 import ReactDOM from "react-dom/client";
 import App from "./App";
 
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .getRegistrations()
-      .then((regs) => {
-        for (const reg of regs) {
-          reg.update();
-        }
-      })
-      .catch((err) => console.error("SW update failed:", err));
-
-    navigator.serviceWorker
-      .register("/firebase-messaging-sw.js")
-      .then((reg) => console.log("FCM Service Worker registered:", reg.scope))
-      .catch((err) => console.error("SW registration failed:", err));
+if (navigator.onLine && "caches" in window) {
+  caches.keys().then((keys) => {
+    keys.forEach((key) => {
+      if (!key.includes("firebase")) {
+        caches.delete(key);
+      }
+    });
   });
+  window.location.reload();
 }
 
 const start = async () => {
