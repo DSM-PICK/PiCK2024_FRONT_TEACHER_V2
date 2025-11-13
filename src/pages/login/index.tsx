@@ -46,9 +46,6 @@ const Login = () => {
           router("/main");
           saveToken(accessToken, refreshToken);
         },
-        onError: (err: Error) => {
-          toast.error(err.message || "다시 시도해주세요.");
-        },
       }
     );
   };
