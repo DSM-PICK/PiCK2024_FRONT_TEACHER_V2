@@ -46,6 +46,9 @@ const Login = () => {
           router("/main");
           saveToken(accessToken, refreshToken);
         },
+        onError: (err) => {
+          toast.error(err.message);
+        },
       }
     );
   };
