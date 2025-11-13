@@ -4,6 +4,7 @@ import { instance } from "..";
 import { useState } from "react";
 import { cookie } from "@/utils/auth";
 import useHomeRoomInformation from "@/stores/hoomroom";
+import { toast } from "react-toastify";
 
 const router = "/admin";
 
@@ -47,6 +48,8 @@ export const useLogin = () => {
           return data;
         })
         .catch((error) => {
+          const errorMessage = (error.response?.data as any)?.message;
+          if (errorMessage) toast.error(errorMessage);
           throw error;
         });
     },
