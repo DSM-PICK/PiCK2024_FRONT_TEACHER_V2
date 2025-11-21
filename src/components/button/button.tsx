@@ -18,6 +18,7 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <ButtonContainer
+      type="button"
       error={error}
       width={width}
       disabled={disabled}
