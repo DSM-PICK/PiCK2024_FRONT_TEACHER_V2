@@ -34,6 +34,7 @@ const Login = () => {
 
   const submitLogin = async () => {
     const token = await requestPermission();
+    alert("로그인 버튼 클릭"); // 테스트
     if (!token) {
       toast.error("알림 수신에 거부하셨습니다");
     }
@@ -43,6 +44,7 @@ const Login = () => {
         onSuccess: (res) => {
           const accessToken = res.access_token;
           const refreshToken = res.refresh_token;
+          alert("api 리턴값 잘 가져옴"); //테스트
           router("/main");
           saveToken(accessToken, refreshToken);
         },
@@ -57,7 +59,7 @@ const Login = () => {
       <ContentWrap>
         <TextWrap>
           <LoginTitle>
-            <HilightText>PiCK</HilightText>에 로그인하기
+            <HilightText>PiCK</HilightText>에 테스트
           </LoginTitle>
           <LoginSubTitle>스퀘어 계정으로 로그인 해주세요.</LoginSubTitle>
         </TextWrap>
