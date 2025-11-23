@@ -34,7 +34,6 @@ const BASEURL = import.meta.env.VITE_SERVER_BASE_URL;
 export const useLogin = () => {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [refreshToken, setRefreshToken] = useState<string | null>(null);
-  alert("로그인 api 로직 시작"); //테스트
 
   const loginMutation = useMutation<Token, Error, Login>({
     mutationFn: (param: Login) => {
@@ -46,13 +45,11 @@ export const useLogin = () => {
           const data = response.data;
           setAccessToken(data.access_token);
           setRefreshToken(data.refresh_token);
-          alert("로그인 api 성공"); //테스트
           return data;
         })
         .catch((error) => {
           const errorMessage = (error.response?.data as any)?.message;
           if (errorMessage) toast.error(errorMessage);
-          alert("로그인 api 실패"); //테스트
           throw error;
         });
     },
