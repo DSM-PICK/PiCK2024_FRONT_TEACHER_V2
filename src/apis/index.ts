@@ -13,6 +13,12 @@ instance.interceptors.request.use(
   (config) => {
     if (typeof window !== "undefined") {
       const accessToken = cookie.get("access_token");
+      const refreshToken = cookie.get("refresh_token");
+      if (!refreshToken) {
+        toast.error("다시 로그인해주세요");
+        window.location.href = "/";
+        return Promise.reject(new Error("No refresh token"));
+      }
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
