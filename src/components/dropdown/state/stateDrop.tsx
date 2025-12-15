@@ -36,6 +36,7 @@ const StatusDrop = ({ status, onChange }: StatusProps) => {
     { value: "PICNIC", label: "현체" },
     { value: "DISALLOWE", label: "결과" },
     { value: "EMPLOYMENT", label: "취업" },
+    { value: "DISALLOWED", label: "무단 결석" },
   ];
 
   const handleOptionClick = (option: any) => {
