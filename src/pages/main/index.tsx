@@ -23,14 +23,16 @@ const Main = () => {
     }
   }, [teacherInfomation]);
 
-  if (navigator !== undefined) {
-    const userAgent = navigator.userAgent;
-    if (!(/iPad|iPhone|iPod/.test(userAgent) || /android/i.test(userAgent))) {
-      alert("알맞지 않은 기기입니다. pick-admin 으로 이동합니다");
-      location.href = "https://pick-admin.dsmhs.kr";
-      return null;
+  useEffect(() => {
+    if (typeof window !== undefined) {
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      if (!isMobile) {
+        alert("알맞지 않은 기기입니다. pick-admin 으로 이동합니다");
+        location.href = "https://pick-admin.dsmhs.kr";
+        return;
+      }
     }
-  }
+  }, []);
 
   return (
     <div>
