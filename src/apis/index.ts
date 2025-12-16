@@ -13,6 +13,12 @@ instance.interceptors.request.use(
   (config) => {
     if (typeof window !== "undefined") {
       const accessToken = cookie.get("access_token");
+      const refreshToken = cookie.get("refresh_token");
+      if (!refreshToken) {
+        toast.error("다시 로그인해주세요");
+        window.location.href = "/";
+        return Promise.reject(new Error("No refresh token"));
+      }
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
@@ -24,12 +30,12 @@ instance.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     if (axios.isAxiosError(error)) {
-      const status = error.code;
+      const status = (error?.response?.data as any).status;
       const originalRequest = error.config as typeof error.config & {
         _retry?: boolean;
       };
 
-      if (status === "ERR_NETWORK" && !originalRequest._retry) {
+      if (status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
 
         const refreshToken = cookie.get("refresh_token");
