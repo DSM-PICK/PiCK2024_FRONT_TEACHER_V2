@@ -1,9 +1,8 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { ApplicationListType, EarlyReturnType } from "./type";
+import { ApplicationListType } from "./type";
 import { instance } from "..";
 
 const router = "/application";
-const erouter = "/early-return";
 
 export const useApplicationRequest = (
   grade: number,
@@ -36,12 +35,16 @@ export const ApplicationChange = () => {
   });
 };
 
-export const ApplicationList = (floor: number, status: string) => {
+export const outList = (
+  floor: number,
+  status: string,
+  type: "application" | "early-return"
+) => {
   return useQuery({
     queryKey: ["ApplicationList", floor, status],
     queryFn: async () => {
       const { data } = await instance.get<ApplicationListType[]>(
-        `${router}/floor?floor=${floor}&status=${status}`
+        `${type}/floor?floor=${floor}&status=${status}`
       );
       return data;
     },
@@ -50,22 +53,8 @@ export const ApplicationList = (floor: number, status: string) => {
 
 export const ReturnSchool = () => {
   return useMutation<void, Error, string[]>({
-    mutationFn: async (...param) => {
-      await instance.patch(`${router}/return`, ...param, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    },
-  });
-};
-
-export const useGetEarlyReturnList = () => {
-  return useQuery({
-    queryKey: ["EarlyReturnList"],
-    queryFn: async () => {
-      const { data } = await instance.get<EarlyReturnType[]>(`${erouter}/ok`);
-      return data;
+    mutationFn: async (param: string[]) => {
+      await instance.patch(`${router}/return`, param);
     },
   });
 };
