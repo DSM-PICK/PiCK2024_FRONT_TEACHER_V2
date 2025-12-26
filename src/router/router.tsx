@@ -13,7 +13,6 @@ import PreviousDetail from "@/pages/preList/detail";
 import WrappedCalendarComponents from "@/pages/selfStudy";
 import CalendarComponents from "@/pages/selfStudy";
 import Signup from "@/pages/signup";
-import { element } from "prop-types";
 import { createBrowserRouter } from "react-router-dom";
 
 export const Router = createBrowserRouter([
