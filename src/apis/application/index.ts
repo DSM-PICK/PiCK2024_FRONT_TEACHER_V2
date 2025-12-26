@@ -41,7 +41,7 @@ export const outList = (
   type: "application" | "early-return"
 ) => {
   return useQuery({
-    queryKey: ["ApplicationList", floor, status],
+    queryKey: ["ApplicationList", floor, status, type],
     queryFn: async () => {
       const { data } = await instance.get<ApplicationListType[]>(
         `${type}/floor?floor=${floor}&status=${status}`
