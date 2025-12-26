@@ -1,8 +1,4 @@
-import {
-  ApplicationList,
-  ReturnSchool,
-  useGetEarlyReturnList,
-} from "@/apis/application";
+import { outList, ReturnSchool } from "@/apis/application";
 import Button from "@/components/button/button";
 import Dropdown from "@/components/dropdown/dropdown";
 import Layout from "@/components/layout/layout";
@@ -20,11 +16,16 @@ const OutList = () => {
   const [selectedfloor, setSelectedfloor] = useState<number>(5);
   const [selectedTab, setSelectedTab] = useState<number>(0);
 
-  const { data: Application, refetch: ReApplication } = ApplicationList(
+  const { data: Application, refetch: ReApplication } = outList(
     selectedfloor,
-    "OK"
+    "OK",
+    "application"
   );
-  const { data: EarlyreturnList } = useGetEarlyReturnList();
+  const { data: EarlyreturnList } = outList(
+    selectedfloor,
+    "OK",
+    "early-return"
+  );
 
   const { mutate: Return } = ReturnSchool();
 
@@ -58,13 +59,11 @@ const OutList = () => {
         title="외출자 목록"
         subtitle={getToday()}
         right={
-          selectedTab === 0 && (
-            <Dropdown
-              options={floorOptions}
-              value={selectedfloor}
-              changeHandler={handleFloorChange}
-            />
-          )
+          <Dropdown
+            options={floorOptions}
+            value={selectedfloor}
+            changeHandler={handleFloorChange}
+          />
         }
       >
         <TopContainer>
@@ -81,7 +80,7 @@ const OutList = () => {
             ? Application?.map((item) => (
                 <OutRequest
                   selected={selectedStudents.includes(item.id)}
-                  time={`${item.start.slice(0, 5)} ~ ${item.end.slice(0, 5)}`}
+                  time={`${item.start.slice(0, 5)} ~ ${item.end?.slice(0, 5)}`}
                   userInfo={getStudentString(item)}
                   reason={item.reason}
                   onClick={() =>
