@@ -4,13 +4,21 @@ export const cookie = new Cookies();
 
 export const saveToken = (accessToken: string, refreshToken: string) => {
   const isDev = import.meta.env.DEV;
-  const options = {
+  const baseOptions = {
     path: "/",
-    maxAge: 60 * 60 * 24 * 180,
     sameSite: "lax" as const,
     secure: !isDev,
   };
 
-  cookie.set("access_token", accessToken, options);
-  cookie.set("refresh_token", refreshToken, options);
+  const accessOptions = {
+    ...baseOptions,
+    maxAge: 60 * 60 * 24 * 150,
+  };
+  const refreshOptions = {
+    ...baseOptions,
+    maxAge: 60 * 60 * 24 * 180,
+  };
+
+  cookie.set("access_token", accessToken, accessOptions);
+  cookie.set("refresh_token", refreshToken, refreshOptions);
 };
