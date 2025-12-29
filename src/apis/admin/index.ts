@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { instance } from "..";
 import { useState } from "react";
-import { cookie } from "@/utils/auth";
+import { cookie, saveToken } from "@/utils/auth";
 import useHomeRoomInformation from "@/stores/hoomroom";
 import { toast } from "react-toastify";
 
@@ -83,8 +83,7 @@ export const useSignup = () => {
           const data = response.data;
           setAccessToken(data.access_token);
           setRefreshToken(data.refresh_token);
-          cookie.set("access_token", data.access_token);
-          cookie.set("refresh_token", data.refresh_token);
+          saveToken(data.access_token, data.refresh_token);
           return data;
         })
         .catch((error) => {
