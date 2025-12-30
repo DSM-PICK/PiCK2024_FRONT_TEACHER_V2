@@ -1,4 +1,4 @@
-import { cookie } from "@/utils/auth";
+import { cookie, saveToken } from "@/utils/auth";
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 
@@ -46,8 +46,7 @@ instance.interceptors.response.use(
             },
           });
           const data = response.data;
-          cookie.set("access_token", data.access_token);
-          cookie.set("refresh_token", data.refresh_token);
+          saveToken(data.access_token, data.refresh_token);
 
           if (originalRequest) {
             originalRequest.headers.Authorization = `Bearer ${data.access_token}`;
