@@ -3,8 +3,8 @@ import Button from "@/components/button/button";
 import Input from "@/components/input";
 import { requestPermission } from "@/firebase";
 import { theme } from "@/styles/theme";
-import { saveToken } from "@/utils/auth";
-import React, { useState } from "react";
+import { cookie, saveToken } from "@/utils/auth";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { styled } from "styled-components";
@@ -31,6 +31,13 @@ const Login = () => {
   };
 
   const router = useNavigate();
+
+  useEffect(() => {
+    const refreshToken = cookie.get("refresh_token");
+    if (refreshToken) {
+      router("/main");
+    }
+  }, [router]);
 
   const submitLogin = async () => {
     const token = await requestPermission();
