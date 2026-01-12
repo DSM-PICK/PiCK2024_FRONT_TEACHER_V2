@@ -18,12 +18,13 @@ const Bug = () => {
   });
 
   const [modal, setModal] = useState<boolean>(false);
-  const { mutate: BugImgMutate } = BugImg();
-  const { mutate: BugReportMutate } = BugPost();
+  const { mutate: BugImgMutate, isPending: isUploading } = BugImg();
+  const { mutate: BugReportMutate, isPending: isReporting } = BugPost();
 
   const router = useNavigate();
 
   const bugReport = () => {
+    if (isReporting) return;
     BugReportMutate(data, {
       onSuccess: () => {
         router("/main");
@@ -41,6 +42,7 @@ const Bug = () => {
     }));
   };
   const handleImgUpload = async (images: File[]) => {
+    if (isUploading) return;
     try {
       const response = await BugImgMutate(
         { file: images },
@@ -138,7 +140,7 @@ const Bug = () => {
         </InputContent>
       </ContentWrap>
       <ButtonContent>
-        <Button width="100%" onClick={bugReport}>
+        <Button width="100%" onClick={bugReport} disabled={isReporting}>
           제보하기
         </Button>
       </ButtonContent>
