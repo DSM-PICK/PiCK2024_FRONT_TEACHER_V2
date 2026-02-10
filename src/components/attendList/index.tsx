@@ -18,7 +18,7 @@ export const AttendanceList = ({
   period,
 }: AttendanceListProps) => {
   const [state, setState] = useState<string>(status);
-  const { mutate: attendanceSave } = FixStatus();
+  const { mutate: attendanceSave, isPending: isSaving } = FixStatus();
 
   const AttandenceSaveFn = async (newStatus: string) => {
     attendanceSave({
@@ -33,6 +33,7 @@ export const AttendanceList = ({
   };
 
   const handleStatusChange = async (option: string) => {
+    if (isSaving) return;
     try {
       setState(option);
       await AttandenceSaveFn(option);

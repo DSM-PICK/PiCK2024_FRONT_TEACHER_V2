@@ -18,9 +18,9 @@ const Signup = () => {
   const location = useLocation();
   const path = location.pathname;
 
-  const { mutate: signup } = useSignup();
+  const { mutate: signup, isPending: isSigningUp } = useSignup();
   const { mutate: emailAuth, isPending: isSending } = useEmailAuth();
-  const { mutate: checkEmailCode } = useEmailCheck();
+  const { mutate: checkEmailCode, isPending: isCheckingCode } = useEmailCheck();
   const [disabled, setDisabled] = useState<boolean>(true);
 
   const {
@@ -72,6 +72,7 @@ const Signup = () => {
   }, [path, form, errors, ui]);
 
   const handleVerifyCode = () => {
+    if (isCheckingCode) return;
     if (!form.email || !form.code) {
       setError("code", "이메일과 인증 코드를 모두 입력해주세요.");
       return;
@@ -169,6 +170,8 @@ const Signup = () => {
       return;
     }
 
+    if (isSigningUp) return;
+
     clearError("secretKey");
     clearError("code");
     resetErrors();
@@ -254,7 +257,7 @@ const Signup = () => {
                 if (errors.email) clearError("email");
               }}
               onButtonClick={handleMailBtn}
-              disabled={ui.isEmailLocked}
+              disabled={ui.isEmailLocked || isSending}
               mainText="발송"
               subText="재발송"
               domain="dsm.hs.kr"
@@ -271,7 +274,7 @@ const Signup = () => {
                 if (errors.code) clearError("code");
               }}
               onButtonClick={handleVerifyCode}
-              disabled={ui.isEmailLocked}
+              disabled={ui.isEmailLocked || isCheckingCode}
               mainText="확인"
               subText="확인"
               domain=""
@@ -384,7 +387,11 @@ const Signup = () => {
       <S.ContentWrap>{renderStep()}</S.ContentWrap>
 
       <S.FixedButtonWrap>
-        <Button width="100%" onClick={handleClickBtn} disabled={disabled}>
+        <Button
+          width="100%"
+          onClick={handleClickBtn}
+          disabled={disabled || isSigningUp}
+        >
           {path === "/signup/info" ? "회원가입" : "다음"}
         </Button>
       </S.FixedButtonWrap>

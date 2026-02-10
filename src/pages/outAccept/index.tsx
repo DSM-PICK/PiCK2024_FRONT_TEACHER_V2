@@ -28,9 +28,10 @@ const OutAccept = () => {
     selectedClass,
     selectedTab === 0 ? "application" : "early-return"
   );
-  const { mutate: Check } = ApplicationChange();
+  const { mutate: Check, isPending: isChanging } = ApplicationChange();
 
   const Change = (option: boolean) => () => {
+    if (isChanging) return;
     const statusProp = option ? "OK" : "NO";
     Check(
       {
@@ -52,7 +53,7 @@ const OutAccept = () => {
 
   const { selectedStudents, handleAcceptListClick } =
     useAcceptListSelectionStore();
-  const disabled = !selectedStudents.length;
+  const disabled = !selectedStudents.length || isChanging;
 
   useEffect(() => {
     ReApplication();

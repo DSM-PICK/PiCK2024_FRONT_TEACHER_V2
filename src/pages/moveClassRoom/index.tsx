@@ -19,12 +19,13 @@ const MoveClassroom = () => {
   const { selectedStudents, handleAcceptListClick, resetSelection } =
     useAcceptListSelection();
 
-  const disabled = !selectedStudents.length;
   const { data: ReqClassRoom, refetch: RequestClassRoomData } =
-    RequestClassRoom(selectedTab + 2, "QUIET");
-  const { mutate: Accept } = AcceptClassroom();
-
+  RequestClassRoom(selectedTab + 2, "QUIET");
+  const { mutate: Accept, isPending: isAccepting } = AcceptClassroom();
+  
+  const disabled = !selectedStudents.length || isAccepting;
   const handleOK = (accept: boolean) => () => {
+    if (isAccepting) return;
     const statusProp = accept ? "OK" : "NO";
     Accept(
       { status: statusProp, id_list: selectedStudents },

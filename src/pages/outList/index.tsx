@@ -27,13 +27,14 @@ const OutList = () => {
     "early-return"
   );
 
-  const { mutate: Return } = ReturnSchool();
+  const { mutate: Return, isPending: isReturning } = ReturnSchool();
 
   const handleTabClick = (index: number) => {
     setSelectedTab(index);
   };
 
   const StudentReturnSchool = () => {
+    if (isReturning) return;
     Return(selectedStudents, {
       onSuccess: () => {
         alert("성공");
@@ -43,7 +44,7 @@ const OutList = () => {
   };
 
   const { selectedStudents, handleAcceptListClick } = useAcceptListSelection();
-  const disabled = !selectedStudents.length;
+  const disabled = !selectedStudents.length || isReturning;
 
   useEffect(() => {
     ReApplication();

@@ -12,7 +12,7 @@ import { styled } from "styled-components";
 const Login = () => {
   const [adminId, setAdminId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { mutate: login } = useLogin();
+  const { mutate: login, isPending: isLoggingIn } = useLogin();
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -40,9 +40,13 @@ const Login = () => {
   }, [router]);
 
   const submitLogin = async () => {
+    if (isLoggingIn) return;
     const token = await requestPermission();
     if (!token) {
       toast.error("알림 수신에 거부하셨습니다");
+    }
+    if (!token) {
+      return;
     }
     login(
       { admin_id: adminId, password: password, device_token: token ?? "" },
@@ -57,7 +61,7 @@ const Login = () => {
     );
   };
 
-  const disabled = adminId === "" || password === "";
+  const disabled = adminId === "" || password === "" || isLoggingIn;
 
   return (
     <Container>

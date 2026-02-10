@@ -66,6 +66,7 @@ export const useLogin = () => {
     mutate: loginMutation.mutate,
     accessToken,
     refreshToken,
+    isPending: loginMutation.isPending,
   };
 };
 
@@ -103,6 +104,7 @@ export const useSignup = () => {
     mutate: signupMutation.mutate,
     accessToken,
     refreshToken,
+    isPending: signupMutation.isPending,
   };
 };
 
