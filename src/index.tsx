@@ -23,6 +23,34 @@ const start = async () => {
   ReactDOM.createRoot(document.getElementById("root")!).render(<App />);
 };
 
+type OSType = "Android" | "iOS" | "Windows" | "macOS" | "Linux" | "Unknown";
+
+const getOS = (): OSType => {
+  const { userAgent: ua, platform: plt } = navigator;
+
+  // navigator.userAgentData.platform 우선 참조
+  const platform: string = (navigator as any).userAgentData?.platform || plt || "";
+
+  // 1. Android
+  if (/android/i.test(ua)) return "Android";
+
+  // 2. iOS (iPhone, iPad, iPod)
+  const isIOS: boolean = /iPhone|iPad|iPod/i.test(ua) ||
+    (/MacIntel/.test(platform) && navigator.maxTouchPoints > 1);
+  if (isIOS) return "iOS";
+
+  // 3. Windows
+  if (/Win/i.test(platform) || /Windows/i.test(ua)) return "Windows";
+
+  // 4. macOS
+  if (/Mac/i.test(platform) || /Macintosh/i.test(ua)) return "macOS";
+
+  // 5. Linux
+  if (/Linux/i.test(platform) || /Linux/i.test(ua)) return "Linux";
+
+  return "Unknown";
+}
+
 (async () => {
   if (!navigator.onLine || !("caches" in window)) return;
 
@@ -47,9 +75,16 @@ const start = async () => {
   }
 
   if (typeof window !== "undefined") {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (!isMobile) {
-      alert("알맞지 않은 기기입니다. pick-admin 으로 이동합니다");
+    const os = getOS();
+    if (os === "iOS") {
+      alert("admin앱으로 이동합니다.");
+      window.open(
+        "https://apps.apple.com/app/id6756826844",
+        "_blank"
+      );
+      return;
+    } else if (os !== "Android") {
+      alert("pick-admin으로 이동합니다.");
       location.href = "https://pick-admin.dsmhs.kr";
       return;
     }
