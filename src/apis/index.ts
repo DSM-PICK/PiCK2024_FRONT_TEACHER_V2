@@ -4,6 +4,14 @@ import { toast } from "react-toastify";
 
 const BASEURL = import.meta.env.VITE_SERVER_BASE_URL;
 
+const ACCESS_TOKEN = "access_token";
+const REFRESH_TOKEN = "refresh_token";
+
+const removeToken = () => {
+  cookie.remove(ACCESS_TOKEN);
+  cookie.remove(REFRESH_TOKEN);
+};
+
 export const instance = axios.create({
   baseURL: BASEURL,
   timeout: 10000,
@@ -12,9 +20,10 @@ export const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     if (typeof window !== "undefined") {
-      const accessToken = cookie.get("access_token");
-      const refreshToken = cookie.get("refresh_token");
+      const accessToken = cookie.get(ACCESS_TOKEN);
+      const refreshToken = cookie.get(REFRESH_TOKEN);
       if (!refreshToken) {
+        removeToken();
         toast.error("다시 로그인해주세요");
         window.location.href = "/";
         return Promise.reject(new Error("No refresh token"));
@@ -23,7 +32,7 @@ instance.interceptors.request.use(
     }
     return config;
   },
-  (error: AxiosError) => Promise.reject(error)
+  (error: AxiosError) => Promise.reject(error),
 );
 
 instance.interceptors.response.use(
@@ -38,7 +47,7 @@ instance.interceptors.response.use(
       if (status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
 
-        const refreshToken = cookie.get("refresh_token");
+        const refreshToken = cookie.get(REFRESH_TOKEN);
         try {
           const response = await axios.put(`${BASEURL}/admin/refresh`, null, {
             headers: {
@@ -53,6 +62,7 @@ instance.interceptors.response.use(
             return instance(originalRequest);
           }
         } catch (refreshError) {
+          removeToken();
           window.location.href = "/";
           return Promise.reject(refreshError);
         }
@@ -62,5 +72,5 @@ instance.interceptors.response.use(
       }
     }
     return Promise.reject(error);
-  }
+  },
 );
