@@ -4,12 +4,17 @@ import { toast } from "react-toastify";
 
 const BASEURL = import.meta.env.VITE_SERVER_BASE_URL;
 
+const TOKEN_COOKIE_OPTIONS = {
+  path: "/",
+  sameSite: "lax" as const,
+  secure: import.meta.env.DEV === false,
+};
 const ACCESS_TOKEN = "access_token";
 const REFRESH_TOKEN = "refresh_token";
 
 const removeToken = () => {
-  cookie.remove(ACCESS_TOKEN);
-  cookie.remove(REFRESH_TOKEN);
+  cookie.remove(ACCESS_TOKEN, TOKEN_COOKIE_OPTIONS);
+  cookie.remove(REFRESH_TOKEN, TOKEN_COOKIE_OPTIONS);
 };
 
 export const instance = axios.create({
