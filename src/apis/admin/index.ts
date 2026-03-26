@@ -8,10 +8,13 @@ import { toast } from "react-toastify";
 
 const router = "/admin";
 
+type OSType = "AOS" | "IOS" | "ADMIN" | "Unknown";
+
 interface Login {
   admin_id: string;
   password: string;
   device_token: string;
+  os: OSType;
 }
 
 interface Token {
@@ -26,7 +29,9 @@ export interface Signup {
   grade: number;
   class_num: number;
   code: string;
+  device_token: string;
   secret_key: string;
+  os: OSType;
 }
 
 const BASEURL = import.meta.env.VITE_SERVER_BASE_URL;
