@@ -9,6 +9,8 @@ import Dropdown from "@/components/dropdown/dropdown";
 import { saveToken } from "@/utils/auth";
 import { useEmailAuth, useEmailCheck } from "@/apis/mail";
 import { useSignupStore } from "@/stores/useSignup";
+import { requestPermission } from "@/firebase";
+import { toast } from "react-toastify";
 
 type OSType = "AOS" | "IOS" | "ADMIN" | "Unknown";
 
@@ -187,7 +189,7 @@ const Signup = () => {
     return "Unknown";
   };
 
-  const handleClickBtn = () => {
+  const handleClickBtn = async () => {
     if (path === "/signup") {
       navigate("/signup/email");
       setDisabled(true);
@@ -204,6 +206,12 @@ const Signup = () => {
 
     if (isSigningUp) return;
 
+    const token = await requestPermission();
+    if (!token) {
+      toast.error("알림 수신에 거부하셨습니다");
+      return;
+    }
+
     clearError("secretKey");
     clearError("code");
     resetErrors();
@@ -216,7 +224,7 @@ const Signup = () => {
       class_num: form.isHomeroom ? Number(form.classNum) : 0,
       code: form.code.trim(),
       secret_key: form.secretKey.trim(),
-      device_token: form.deviceToken,
+      device_token: token ?? "",
       os: getOS(),
     };
 
