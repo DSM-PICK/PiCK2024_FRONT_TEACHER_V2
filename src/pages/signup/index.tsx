@@ -10,6 +10,8 @@ import { saveToken } from "@/utils/auth";
 import { useEmailAuth, useEmailCheck } from "@/apis/mail";
 import { useSignupStore } from "@/stores/useSignup";
 
+type OSType = "AOS" | "IOS" | "ADMIN" | "Unknown";
+
 const PW_REGEX =
   /^(?=\S+$)(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{8,30}$/;
 
@@ -92,7 +94,7 @@ const Signup = () => {
         onError: () => {
           setError("code", "인증 코드가 올바르지 않습니다.");
         },
-      }
+      },
     );
   };
 
@@ -113,7 +115,7 @@ const Signup = () => {
           clearError("email");
           setUI("isSend", true);
         },
-      }
+      },
     );
   }, [form.email, isSending, emailAuth, setError, clearError, setUI]);
 
@@ -125,7 +127,7 @@ const Signup = () => {
     } else {
       setError(
         "password",
-        "비밀번호는 8~30자, 영문/숫자/특수문자를 포함해야 합니다."
+        "비밀번호는 8~30자, 영문/숫자/특수문자를 포함해야 합니다.",
       );
     }
 
@@ -153,6 +155,36 @@ const Signup = () => {
   const handleClassChange = (value: string | number) => {
     setForm("classNum", Number(value));
     if (errors.gradeClass) clearError("gradeClass");
+  };
+
+  const getOS = (): OSType => {
+    const { userAgent: ua, platform: plt } = navigator;
+
+    // navigator.userAgentData.platform 우선 참조
+    const platform: string =
+      (navigator as any).userAgentData?.platform || plt || "";
+
+    // 1. Android
+    if (/android/i.test(ua)) return "AOS";
+
+    // 2. iOS (iPhone, iPad, iPod)
+    const isIOS: boolean =
+      /iPhone|iPad|iPod/i.test(ua) ||
+      (/MacIntel/.test(platform) && navigator.maxTouchPoints > 1);
+    if (isIOS) return "IOS";
+
+    // 3. ADMIN
+    if (
+      /Win/i.test(platform) ||
+      /Windows/i.test(ua) ||
+      /Mac/i.test(platform) ||
+      /Macintosh/i.test(ua) ||
+      /Linux/i.test(platform) ||
+      /Linux/i.test(ua)
+    )
+      return "ADMIN";
+
+    return "Unknown";
   };
 
   const handleClickBtn = () => {
@@ -185,6 +217,7 @@ const Signup = () => {
       code: form.code.trim(),
       secret_key: form.secretKey.trim(),
       device_token: form.deviceToken,
+      os: getOS(),
     };
 
     signup(payload, {
