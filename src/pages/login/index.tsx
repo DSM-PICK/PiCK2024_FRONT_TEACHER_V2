@@ -14,6 +14,36 @@ const Login = () => {
   const [password, setPassword] = useState<string>("");
   const { mutate: login, isPending: isLoggingIn } = useLogin();
 
+  const getOS = () => {
+    const { userAgent: ua, platform: plt } = navigator;
+
+    // navigator.userAgentData.platform 우선 참조
+    const platform: string =
+      (navigator as any).userAgentData?.platform || plt || "";
+
+    // 1. Android
+    if (/android/i.test(ua)) return "AOS";
+
+    // 2. iOS (iPhone, iPad, iPod)
+    const isIOS: boolean =
+      /iPhone|iPad|iPod/i.test(ua) ||
+      (/MacIntel/.test(platform) && navigator.maxTouchPoints > 1);
+    if (isIOS) return "IOS";
+
+    // 3. ADMIN
+    if (
+      /Win/i.test(platform) ||
+      /Windows/i.test(ua) ||
+      /Mac/i.test(platform) ||
+      /Macintosh/i.test(ua) ||
+      /Linux/i.test(platform) ||
+      /Linux/i.test(ua)
+    )
+      return "ADMIN";
+
+    return "Unknown";
+  };
+
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
@@ -23,7 +53,7 @@ const Login = () => {
   };
 
   const handleKeyDown = async (
-    event: React.KeyboardEvent<HTMLInputElement>
+    event: React.KeyboardEvent<HTMLInputElement>,
   ) => {
     if (event.key === "Enter") {
       submitLogin();
@@ -49,7 +79,12 @@ const Login = () => {
       return;
     }
     login(
-      { admin_id: adminId, password: password, device_token: token ?? "" },
+      {
+        admin_id: adminId,
+        password: password,
+        device_token: token ?? "",
+        os: getOS(),
+      },
       {
         onSuccess: (res) => {
           const accessToken = res.access_token;
@@ -57,7 +92,7 @@ const Login = () => {
           router("/main");
           saveToken(accessToken, refreshToken);
         },
-      }
+      },
     );
   };
 

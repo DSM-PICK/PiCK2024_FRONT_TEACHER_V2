@@ -9,6 +9,10 @@ import Dropdown from "@/components/dropdown/dropdown";
 import { saveToken } from "@/utils/auth";
 import { useEmailAuth, useEmailCheck } from "@/apis/mail";
 import { useSignupStore } from "@/stores/useSignup";
+import { requestPermission } from "@/firebase";
+import { toast } from "react-toastify";
+
+type OSType = "AOS" | "IOS" | "ADMIN" | "Unknown";
 
 const PW_REGEX =
   /^(?=\S+$)(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{8,30}$/;
@@ -92,7 +96,7 @@ const Signup = () => {
         onError: () => {
           setError("code", "인증 코드가 올바르지 않습니다.");
         },
-      }
+      },
     );
   };
 
@@ -113,7 +117,7 @@ const Signup = () => {
           clearError("email");
           setUI("isSend", true);
         },
-      }
+      },
     );
   }, [form.email, isSending, emailAuth, setError, clearError, setUI]);
 
@@ -125,7 +129,7 @@ const Signup = () => {
     } else {
       setError(
         "password",
-        "비밀번호는 8~30자, 영문/숫자/특수문자를 포함해야 합니다."
+        "비밀번호는 8~30자, 영문/숫자/특수문자를 포함해야 합니다.",
       );
     }
 
@@ -155,7 +159,37 @@ const Signup = () => {
     if (errors.gradeClass) clearError("gradeClass");
   };
 
-  const handleClickBtn = () => {
+  const getOS = (): OSType => {
+    const { userAgent: ua, platform: plt } = navigator;
+
+    // navigator.userAgentData.platform 우선 참조
+    const platform: string =
+      (navigator as any).userAgentData?.platform || plt || "";
+
+    // 1. Android
+    if (/android/i.test(ua)) return "AOS";
+
+    // 2. iOS (iPhone, iPad, iPod)
+    const isIOS: boolean =
+      /iPhone|iPad|iPod/i.test(ua) ||
+      (/MacIntel/.test(platform) && navigator.maxTouchPoints > 1);
+    if (isIOS) return "IOS";
+
+    // 3. ADMIN
+    if (
+      /Win/i.test(platform) ||
+      /Windows/i.test(ua) ||
+      /Mac/i.test(platform) ||
+      /Macintosh/i.test(ua) ||
+      /Linux/i.test(platform) ||
+      /Linux/i.test(ua)
+    )
+      return "ADMIN";
+
+    return "Unknown";
+  };
+
+  const handleClickBtn = async () => {
     if (path === "/signup") {
       navigate("/signup/email");
       setDisabled(true);
@@ -172,6 +206,12 @@ const Signup = () => {
 
     if (isSigningUp) return;
 
+    const token = await requestPermission();
+    if (!token) {
+      toast.error("알림 수신에 거부하셨습니다");
+      return;
+    }
+
     clearError("secretKey");
     clearError("code");
     resetErrors();
@@ -184,7 +224,8 @@ const Signup = () => {
       class_num: form.isHomeroom ? Number(form.classNum) : 0,
       code: form.code.trim(),
       secret_key: form.secretKey.trim(),
-      device_token: form.deviceToken,
+      device_token: token ?? "",
+      os: getOS(),
     };
 
     signup(payload, {
