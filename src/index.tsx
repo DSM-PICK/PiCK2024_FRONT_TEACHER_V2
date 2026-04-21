@@ -83,11 +83,17 @@ const getOS = (): OSType => {
         "_blank"
       );
       return;
-    } else if (os !== "Android") {
-      alert("pick-admin으로 이동합니다.");
-      location.href = "https://pick-admin.dsmhs.kr";
+    } else if(os == "Android") {
+      alert("admin앱으로 이동합니다.");
+      window.open(
+        "https://play.google.com/store/apps/details?id=com.pick.android.admin",
+        "_blank"
+      );
       return;
     }
+    alert("pick-admin으로 이동합니다.");
+    location.href = "https://pick-admin.dsmhs.kr";
+    return;
   }
 
   start();
