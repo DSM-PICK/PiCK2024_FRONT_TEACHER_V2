@@ -27,7 +27,7 @@ const Main = () => {
     <div>
       <Header />
       <ContentArea>
-        <FloatingNotice role="alert" aria-live="polite">
+        <FloatingNotice role="alert">
           <NoticeLabel>{"\uC11C\uBE44\uC2A4 \uC885\uB8CC \uC548\uB0B4"}</NoticeLabel>
           <NoticeText>
             {"PiCK Teacher\uB294 \uC11C\uBE44\uC2A4 \uC885\uB8CC\uB418\uC5C8\uC2B5\uB2C8\uB2E4"}
